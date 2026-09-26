@@ -1,21 +1,21 @@
 
 #decarator
 def add_sprinkles(func):
-    def wrapper(): 
+    def wrapper(*args, **kwargs): 
         print("**You add sprinkles ✅ **")
-        func()
+        func(*args, **kwargs)
     return wrapper
 
 def add_fudge(func):
-    def wrapper():
+    def wrapper(*args, **kwargs):
         print("**You add fudge 🍫")
-        func()
+        func(*args, **kwargs)
     return wrapper
     
 
 #we can add mor than one decorator
 @add_sprinkles
 @add_fudge
-def  get_ice_cream ():
-    print("Here is your ice cream 🍦")
-get_ice_cream()
+def  get_ice_cream (flavor):
+    print(f"Here is your {flavor} ice cream 🍦")
+get_ice_cream("Vanilla")
