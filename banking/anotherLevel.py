@@ -78,39 +78,3 @@ def show_transactions():
         )
 
 
-def main():
-
-    while True:
-
-        print("\n========== BANKING SYSTEM ==========")
-        print("1. Show Balance")
-        print("2. Deposit")
-        print("3. Withdraw")
-        print("4. Transaction History")
-        print("5. Exit")
-        print("====================================")
-
-        choice = input("Choose an option: ")
-
-        if choice == "1":
-            show_balance()
-
-        elif choice == "2":
-            deposit()
-
-        elif choice == "3":
-            withdraw()
-
-        elif choice == "4":
-            show_transactions()
-
-        elif choice == "5":
-            print("Thank you for using our banking system.")
-            break
-
-        else:
-            print("Invalid choice.")
-
-
-if __name__ == "__main__":
-    main()
