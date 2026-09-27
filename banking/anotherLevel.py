@@ -108,9 +108,6 @@ def main():
             print("Thank you for using our banking system.")
             break
 
-        else:
-            print("Invalid choice.")
-
 
 if __name__ == "__main__":
     main()
