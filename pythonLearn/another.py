@@ -18,7 +18,7 @@ print("Dream country:", country)
 print("Target monthly income: $", money)
 
 if age < 25:
-    print("\nYo have plenty of time to build your future.")
+    print("\nYou have plenty of time to build your future.")
 elif age < 35:
     print("\nThis is a great time to focus on your career and goals.")
 else:
