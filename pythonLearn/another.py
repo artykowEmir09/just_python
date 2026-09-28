@@ -14,7 +14,7 @@ print("Name:", name)
 print("Current age:", age)
 print("Biggest goal:", goal)
 print("Dream career:", career)
-print("Dream country:", country)
+print("Dream countr:", country)
 print("Target monthly income: $", money)
 
 if age < 25:
