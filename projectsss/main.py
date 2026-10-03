@@ -20,7 +20,13 @@ class MainWindow(QMainWindow):
                             "font-weight: bold;"
                             "font-style: italic;")
 
-
+        # label.setAlignment(Qt.AlignTop)
+        # label.setAlignment(Qt.AlignBottom)
+        # label.setAlignment(Qt.AlignVCenter)
+        # label.setAlignment(Qt.AlignRight)
+        # label.setAlignment(Qt.AlignHcenter)
+        label.setAlignment(Qt.AlignHCenter | Qt.AlignTop)
+        
 
 def main ():
     app = QApplication(sys.argv)
