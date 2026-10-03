@@ -22,3 +22,9 @@ chore2.start()
 
 chore3 = threading.Thread(target=get_mail)
 chore3.start()
+
+chore1.join()
+chore2.join()
+chore3.join()
+
+print("All chores are complete")
