@@ -22,10 +22,13 @@ class DigitalClock(QWidget):
                                       "font-family: Arial;"
                                       "color: green;")
         self.setStyleSheet("background-color: black;")
+
+        self.timer.timeout.connect(self.update_time)
+        self.timer.start(1000)
         self.update_time()
 
     def update_time(self):
-        current_time = QTime.currentTime().toString("hh:mm:ss")
+        current_time = QTime.currentTime().toString("hh:mm:ss AP")
         self.time_label.setText(current_time)
 
 
