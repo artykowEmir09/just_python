@@ -4,7 +4,7 @@ score = 0
 total_questions = 20
 
 print("================================")
-print("       MATH QUIZ GAME")
+print("       MATH QUIZ GAME ")
 print("================================")
 
 for question in range(1, total_questions + 1):
