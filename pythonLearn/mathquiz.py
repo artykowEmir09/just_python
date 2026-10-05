@@ -12,13 +12,15 @@ for question in range(1, total_questions + 1):
     num1 = random.randint(1, 200)
     num2 = random.randint(1, 200)
 
-    operation = random.choice(["+", "-", "*"])
+    operation = random.choice(["+", "-", "*","/"])
 
     if operation == "+":
         correct_answer = num1 + num2
 
     elif operation == "-":
         correct_answer = num1 - num2
+    elif operation == "/":
+        correct_answer = num1 / num2
 
     else:
         correct_answer = num1 * num2
