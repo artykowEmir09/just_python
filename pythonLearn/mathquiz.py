@@ -1,7 +1,7 @@
 import random
 
 score = 0
-total_questions = 10
+total_questions = 20
 
 print("================================")
 print("       MATH QUIZ GAME")
