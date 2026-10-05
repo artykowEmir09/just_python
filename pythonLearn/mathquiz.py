@@ -40,7 +40,7 @@ for question in range(1, total_questions + 1):
 
 print()
 print("================================")
-print("             RESULT ")
+print("             RESULTs")
 print("================================")
 
 print("Score:", score, "/", total_questions)
