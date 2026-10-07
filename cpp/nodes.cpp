@@ -21,4 +21,12 @@ int main()
 
     third->data = 30;
     third->next = NULL;
+
+    Node *current = head;
+
+    while (current != NULL)
+    {
+        cout << current->data << " ";
+        current = current->next;
+    }
 }
