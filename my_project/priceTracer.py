@@ -122,4 +122,4 @@ if __name__ == "__main__":
             check_all(a.dry_run)
             time.sleep(a.loop * 60)
     else:
-        check_all(a.dry_run)
+        
