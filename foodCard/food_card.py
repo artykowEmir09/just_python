@@ -4,6 +4,7 @@ foods = []
 prices = []
 total = 0
 coc = 0
+emir = 0 
 
 while True:
     food = input("Enter a food to buy (q to quit): ")
