@@ -4,7 +4,7 @@ foods = []
 prices = []
 total = 0
 coc = 0
-emir = 0 
+
 
 
 
