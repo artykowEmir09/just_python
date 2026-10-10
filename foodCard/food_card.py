@@ -5,7 +5,7 @@ prices = []
 total = 0
 coc = 0
 emir = 0 
-new= 0
+
 
 
 while True:
