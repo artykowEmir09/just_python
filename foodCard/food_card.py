@@ -4,7 +4,7 @@ foods = []
 prices = []
 total = 0
 name = 0 
-surname = 0  
+
 
 
 
