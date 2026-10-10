@@ -3,7 +3,7 @@
 foods = []
 prices = []
 total = 0
-coc = 0
+
 
 
 
