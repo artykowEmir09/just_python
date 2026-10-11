@@ -25,5 +25,5 @@ for food in foods:
 for price in prices:
   
 
-print()
+
 print(f"Your total is: ${total}")
