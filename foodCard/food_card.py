@@ -15,7 +15,7 @@ while True:
     
         price = float(input(f"Enter the price of the {food}: $  "))
         foods.append(food)
-        prices.append(price)
+       
 
 print("----- Your Cart -----")
 
