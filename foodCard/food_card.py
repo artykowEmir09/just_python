@@ -22,7 +22,7 @@ print("----- Your Cart -----")
 for food in foods:
     print(food , end=" ")
 
-
+for price in prices:
   
 
 
