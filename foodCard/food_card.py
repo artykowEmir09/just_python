@@ -25,5 +25,5 @@ for food in foods:
  
     total += price
 
-print()
+ 
  
