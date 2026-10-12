@@ -22,7 +22,7 @@ while True:
 for food in foods:
     print(food , end=" ")
 
-for price in prices:
+ 
     total += price
 
 print()
