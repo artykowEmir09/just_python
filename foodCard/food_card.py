@@ -26,3 +26,4 @@ for price in prices:
     total += price
 
 
+print(f"Your total is: ${total}")
