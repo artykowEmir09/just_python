@@ -23,7 +23,7 @@ for food in foods:
     print(food , end=" ")
 
  
-    total += price
+   
 
  
  
