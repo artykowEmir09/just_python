@@ -26,4 +26,4 @@ for food in foods:
     total += price
 
 print()
- 
+print(f"Your total is: ${total}")
