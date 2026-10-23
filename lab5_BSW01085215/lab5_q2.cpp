@@ -1,9 +1,4 @@
-
-/*Subject code : CSEB3213 Data Structures and Algorithms
-  Section      : 01B
-  Student name : Artykov Emir
-  Student ID no: BSW01085215
-  Question no  : 2 */
+ 
 
 #include <iostream>
 #include <string>
