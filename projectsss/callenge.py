@@ -26,7 +26,7 @@ if __name__ == '__main__':
         a = random.randint(1, 99)
         op = random.choice(ops)
         if op == '/':
-            # if op is '/' then b is a divisor of a                 
+            # if op is '/' then b is a divisor of a                
             b = get_divisor(a)
         else:
             b = random.randint(1, 99)
