@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
-# 1. Load Iris dataset and select the first two features for 2D plotting
+# 1. Load Iris dataset and select the first two features for 2D plotting 
 iris = load_iris()
 X = iris.data[:, :2]  # Selecting Feature 1 and Feature 2
 y = (iris.target != 0) * 1  # Convert target into binary classes (0 or 1)
