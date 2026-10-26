@@ -9,7 +9,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, mean_squared_error
 
-# 1. DATA PREPARATION: Load the built-in Iris dataset
+# 1. DATA PREPARATION: Load the built-in Iris dataset 
 iris = load_iris()
 X = iris.data
 y = iris.target
