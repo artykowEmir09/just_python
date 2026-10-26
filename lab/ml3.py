@@ -1,5 +1,5 @@
 # =====================================================================
-# Logistic Regression Implementation & Decision Boundary Visualization
+# Logistic Regression Implementation & Decision Boundary Visualization 
 # =====================================================================
 
 import numpy as np
