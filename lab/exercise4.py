@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-# Step 1: Generate synthetic dataset                   
+# Step 1: Generate synthetic dataset       
 np.random.seed(42)
 
 house_size = np.random.randint(600, 3500, size=100)  # sq ft
