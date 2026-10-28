@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
  
 np.random.seed(42)
 n = 150
-
+    
 engine_size = np.random.uniform(1.2, 4.0, n)
 age = np.random.randint(1, 15, n)
 mileage = age * np.random.uniform(8, 15, n)
