@@ -20,8 +20,7 @@ df = pd.DataFrame({
     'Size_sqft': house_size,
     'Price': price
 })
-
-# Step 2: Separate features (X) and target (y)
+ 
 X = df[['Size_sqft']]
 y = df['Price']
 
