@@ -1,24 +1,24 @@
  
 
 #include <iostream>
-#include <stack>
+#include <queue>
 #include <string>
 using namespace std;
 
-void displayScripts(stack<string> scripts) {
+void displayScripts(queue<string> scripts) {
     if (scripts.empty()) {
         cout << "No scripts remaining.";
         return;
     }
 
     while (!scripts.empty()) {
-        cout << scripts.top() << " ";
+        cout << scripts.front() << " ";
         scripts.pop();
     }
 }
 
 int main() {
-    stack<string> scripts;
+    queue<string> scripts;
     string studentID;
     int total, markCount;
 
@@ -32,8 +32,8 @@ int main() {
     }
 
     if (!scripts.empty()) {
-        cout << "\nTop answer script: ";
-        cout << scripts.top() << endl;
+        cout << "\nRecent answer script added: ";
+        cout << scripts.back() << endl;
     }
     else {
         cout << "\nNo answer scripts available." << endl;
@@ -45,7 +45,7 @@ int main() {
     cout << "\nScripts selected for marking: ";
 
     for (int i = 0; i < markCount && !scripts.empty(); i++) {
-        cout << scripts.top() << " ";
+        cout << scripts.front() << " ";
         scripts.pop();
     }
 
