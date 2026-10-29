@@ -1,63 +1,73 @@
- 
 
 #include <iostream>
 #include <string>
 using namespace std;
- 
+
 struct Node {
     string studentID;
     Node* next;
 };
- 
-void pushScript(Node*& top, string id) {
+
+void enqueueScript(Node*& front, Node*& rear, string id) {
     Node* newNode = new Node;
 
     newNode->studentID = id;
-    newNode->next = top;
-    top = newNode;
+    newNode->next = nullptr;
+
+    if (front == nullptr) {
+        front = rear = newNode;
+    }
+    else {
+        rear->next = newNode;
+        rear = newNode;
+    }
 }
- 
-string popScript(Node*& top) {
-    if (top == nullptr) {
+
+string dequeueScript(Node*& front, Node*& rear) {
+    if (front == nullptr) {
         return "";
     }
 
-    Node* temp = top;
+    Node* temp = front;
     string id = temp->studentID;
 
-    top = top->next;
-    delete temp;
+    front = front->next;
 
+    if (front == nullptr) {
+        rear = nullptr;
+    }
+
+    delete temp;
     return id;
 }
 
-
-int countScripts(Node* top) {
+int countScripts(Node* front) {
     int count = 0;
 
-    while (top != nullptr) {
+    while (front != nullptr) {
         count++;
-        top = top->next;
+        front = front->next;
     }
 
     return count;
 }
 
-
-void displayScripts(Node* top) {
-    if (top == nullptr) {
+void displayScripts(Node* front) {
+    if (front == nullptr) {
         cout << "No scripts remaining.";
         return;
     }
 
-    while (top != nullptr) {
-        cout << top->studentID << " ";
-        top = top->next;
+    while (front != nullptr) {
+        cout << front->studentID << " ";
+        front = front->next;
     }
 }
 
 int main() {
-    Node* top = nullptr;
+    Node* front = nullptr;
+    Node* rear = nullptr;
+
     string studentID;
     int total, markCount;
 
@@ -67,12 +77,13 @@ int main() {
     for (int i = 0; i < total; i++) {
         cout << "Enter student ID: ";
         cin >> studentID;
-        pushScript(top, studentID);
+
+        enqueueScript(front, rear, studentID);
     }
 
-    if (top != nullptr) {
-        cout << "\nTop answer script: ";
-        cout << top->studentID << endl;
+    if (front != nullptr) {
+        cout << "\nFront answer script: ";
+        cout << front->studentID << endl;
     }
     else {
         cout << "\nNo answer scripts available." << endl;
@@ -83,18 +94,19 @@ int main() {
 
     cout << "\nScripts selected for marking: ";
 
-    for (int i = 0; i < markCount && top != nullptr; i++) {
-        cout << popScript(top) << " ";
+    for (int i = 0; i < markCount && front != nullptr; i++) {
+        cout << dequeueScript(front, rear) << " ";
     }
 
     cout << "\nRemaining scripts: ";
-    displayScripts(top);
+    displayScripts(front);
 
-  
-    while (top != nullptr) {
-        popScript(top);
+    cout << "\nTotal scripts remaining: ";
+    cout << countScripts(front) << endl;
+
+    while (front != nullptr) {
+        dequeueScript(front, rear);
     }
 
-    cout << endl;
     return 0;
 }
