@@ -56,7 +56,7 @@ void displayScripts(Node* front) {
         front = front->next;
     }
 }
-                          
+                                    
 int main() {
     Node* front = nullptr;
     Node* rear = nullptr;
