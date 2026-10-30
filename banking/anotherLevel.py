@@ -4,7 +4,7 @@ from datetime import datetime
 balance = 1000.00
 transactions = []
 
-
+    
 def show_balance():
     print(f"\nCurrent balance: ${balance:.2f}")
 
