@@ -55,7 +55,7 @@ void displayScripts(Node* front) {
         cout << front->studentID << " ";
         front = front->next;
     }
-}
+}     
                                                   
 int main() {
     Node* front = nullptr;
