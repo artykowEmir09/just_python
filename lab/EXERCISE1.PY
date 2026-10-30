@@ -8,7 +8,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 print("All libraries imported successfully!")
-
+     
 # What each library does:
 # - NumPy: numerical calculations and random data.
 # - Pandas: creates and manages datasets using DataFrames.
