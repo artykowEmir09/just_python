@@ -1,4 +1,5 @@
 from datetime import datetime
+
 balance = 1000.00
 transactions = []
 
