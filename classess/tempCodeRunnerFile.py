@@ -34,4 +34,4 @@ while True:
             print("Error: Cannot divide by zero!")
         else:
             print("Result:", num1 / num2)   
-                
+                                     
