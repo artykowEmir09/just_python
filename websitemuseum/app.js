@@ -363,7 +363,7 @@ function buildGallery() {
   ceiling.position.set(0, 5.5, 1);
 
   scene.add(ceiling);
-       
+           
                                            
   // WALLS
 
