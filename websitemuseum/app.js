@@ -364,7 +364,7 @@ function buildGallery() {
 
   scene.add(ceiling);
            
-                                                          
+                                     
   // WALLS
 
   addBox(14, 5.5, 0.22, 0, 2.75, -13.5, "#d8dbcf");
