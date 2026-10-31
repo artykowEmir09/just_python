@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eeeae1">
+  <meta name="description" content="Step inside ATELIER, a walkable virtual museum of original digital art.">
+  <title>ATELIER — The Quiet Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="ATELIER home">
+      <span class="brand-name">ATELIER</span>
+      <span class="brand-subtitle">A MUSEUM WITHOUT WALLS</span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <button class="nav-link" id="collectionBtn">Collection</button>
+      <button class="nav-link" id="aboutBtn">About</button>
+      <button class="nav-guide" id="guideBtn">Visitor guide <span>↗</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">THE QUIET COLLECTION · VIRTUAL EXHIBITION 01</p>
+        <h1>A little space<br class="mobile-break"> for wonder.</h1>
+      </div>
+      <p class="intro-copy">Slow down. Look closer. Wander through an exhibition of form, colour, and imagination.</p>
+    </section>
+
+    <section class="museum-shell" aria-label="Interactive virtual museum">
+      <div id="museum" class="museum">
+        <div class="museum-loading" id="loading">
+          <div class="loading-mark">A</div>
+          <p>Preparing the gallery…</p>
+        </div>
+        <div class="museum-topline">
+          <span><i class="live-dot"></i> GALLERY 01 / STUDIES IN STILLNESS</span>
+          <span class="topline-right">INTERACTIVE EXHIBITION</span>
+        </div>
+        <div class="museum-actions">
+          <button class="round-btn" id="homeBtn" title="Return to entrance" aria-label="Return to entrance">⌂</button>
+          <button class="round-btn" id="soundBtn" title="Toggle ambient sound" aria-label="Toggle ambient sound">♫</button>
+          <button class="round-btn" id="fullscreenBtn" title="Toggle fullscreen" aria-label="Toggle fullscreen">⛶</button>
+        </div>
+        <div class="welcome-overlay" id="welcome">
+          <div class="welcome-card">
+            <p class="eyebrow">WELCOME TO ATELIER</p>
+            <h2>Art asks us<br>to take our time.</h2>
+            <p>Enter a quiet, walkable exhibition of six original digital studies.</p>
+            <button class="primary-btn" id="enterBtn">Enter the gallery <span>→</span></button>
+            <small>Best experienced with headphones and a little curiosity.</small>
+          </div>
+        </div>
+        <div class="museum-bottomline">
+          <span id="statusText">A quiet place to explore.</span>
+          <span class="desktop-hint">W A S D to walk <b>·</b> Drag to look <b>·</b> Click a work to explore</span>
+        </div>
+        <div class="mobile-pad" aria-label="Movement controls">
+          <button data-move="forward" aria-label="Move forward">↑</button>
+          <button data-move="left" aria-label="Move left">←</button>
+          <button data-move="back" aria-label="Move backward">↓</button>
+          <button data-move="right" aria-label="Move right">→</button>
+        </div>
+        <button class="inspect-prompt" id="inspectBtn">Explore artwork ↗</button>
+        <div class="crosshair" id="crosshair" aria-hidden="true">+</div>
+      </div>
+    </section>
+    <section class="under-gallery">
+      <div><strong>06 WORKS</strong><span> · </span> ONE OPEN SPACE</div>
+      <div>Original digital studies <span> / </span> Explore at your own pace ↗</div>
+    </section>
+  </main>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <section class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeModal" aria-label="Close dialog">×</button>
+      <div id="modalContent"></div>
+    </section>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

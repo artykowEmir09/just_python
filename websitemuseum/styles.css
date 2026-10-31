@@ -1,0 +1,70 @@
+*{box-sizing:border-box}
+:root{--paper:#eeeae1;--panel:#f8f6f0;--ink:#29332c;--muted:#72796d;--line:#d9d8ce;--olive:#66765b;--serif:"Playfair Display",Georgia,serif;--sans:"DM Sans",Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px}
+button{font:inherit;cursor:pointer}
+.site-header{height:88px;padding:0 4.2%;display:flex;align-items:center;justify-content:space-between;background:var(--panel);border-bottom:1px solid var(--line)}
+.brand{color:inherit;text-decoration:none;display:flex;flex-direction:column;gap:5px}
+.brand-name{font:28px var(--serif);letter-spacing:7px}
+.brand-subtitle{font-size:9px;letter-spacing:2.1px;color:var(--muted)}
+.main-nav{display:flex;align-items:center;gap:30px}
+.nav-link,.nav-guide{border:0;background:none;color:#4b554b;font-size:12px}
+.nav-guide{border:1px solid #aab3a3;border-radius:30px;padding:11px 18px}
+.nav-guide span{margin-left:12px}
+.intro{padding:39px 4.2% 30px;display:flex;justify-content:space-between;align-items:end;gap:24px}
+.eyebrow{margin:0;color:var(--olive);font-size:9px;letter-spacing:2px;font-weight:600}
+h1{font:clamp(36px,4.5vw,58px)/1.08 var(--serif);font-weight:400;margin:12px 0 0;letter-spacing:-1.3px}
+.intro-copy{max-width:310px;margin:0 1% 3px 0;color:var(--muted);font-size:13px;line-height:1.8}
+.mobile-break{display:none}
+.museum-shell{margin:0 2%;padding:7px;background:#d7d7cd;border:1px solid #d0d0c6;box-shadow:0 18px 55px #34403312}
+.museum{height:min(68vh,760px);min-height:490px;position:relative;overflow:hidden;background:#c6c9bf;isolation:isolate}
+.museum canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
+.museum-topline,.museum-bottomline{position:absolute;left:22px;right:22px;z-index:2;display:flex;justify-content:space-between;align-items:center;pointer-events:none;color:#f8f6ed;font-size:9px;letter-spacing:1.5px;text-shadow:0 1px 8px #0005}
+.museum-topline{top:19px}.museum-bottomline{bottom:19px;font-size:10px;letter-spacing:.4px}
+.live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#a8bf8e;margin-right:8px;box-shadow:0 0 0 4px #a8bf8e25}
+.museum-actions{position:absolute;right:18px;top:16px;z-index:3;display:flex;gap:7px}
+.round-btn{width:37px;height:37px;border-radius:50%;border:1px solid #ffffff9c;background:#f7f5eddf;color:#394438;font-size:17px;backdrop-filter:blur(8px)}
+.welcome-overlay{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#1b2a2033,#1b2a2010),#26382c22;transition:opacity .45s,visibility .45s}
+.welcome-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.welcome-card{width:min(390px,calc(100% - 34px));padding:34px 36px;background:#f7f5edf2;border:1px solid #ffffffb8;box-shadow:0 20px 70px #17251e30;backdrop-filter:blur(12px)}
+.welcome-card h2{font:36px/1.15 var(--serif);font-weight:400;margin:13px 0}
+.welcome-card>p:not(.eyebrow){color:var(--muted);line-height:1.7;font-size:12px;margin:0 0 21px}
+.primary-btn{width:100%;padding:15px 18px;border:0;background:#344536;color:#fff;font-size:12px;letter-spacing:.5px;text-align:left}
+.primary-btn span{float:right;font-size:17px;line-height:12px}
+.welcome-card small{display:block;margin-top:15px;color:#8a9085;font-size:9px}
+.desktop-hint{color:#f8f6ed}
+.desktop-hint b{margin:0 8px;color:#c5d0bc}
+.mobile-pad{display:none;position:absolute;left:16px;bottom:52px;z-index:3;grid-template-columns:39px 39px 39px;grid-template-rows:39px 39px;gap:4px}
+.mobile-pad button{border:1px solid #ffffffa8;border-radius:8px;background:#f7f5eddf;color:#344536;font-size:18px;touch-action:none}
+.mobile-pad button:nth-child(1){grid-column:2}.mobile-pad button:nth-child(2){grid-column:1;grid-row:2}.mobile-pad button:nth-child(3){grid-column:2;grid-row:2}.mobile-pad button:nth-child(4){grid-column:3;grid-row:2}
+.inspect-prompt{display:none;position:absolute;z-index:3;bottom:65px;left:50%;transform:translateX(-50%);padding:12px 19px;border:0;border-radius:30px;background:#344536;color:white;white-space:nowrap;box-shadow:0 6px 20px #0002}
+.crosshair{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-size:20px;text-shadow:0 1px 5px #000;pointer-events:none}
+.under-gallery{padding:20px 4.2%;display:flex;justify-content:space-between;color:var(--muted);font-size:10px;letter-spacing:.4px}
+.under-gallery strong{font-weight:600;color:var(--ink)}
+.under-gallery span{color:#a1a697}
+.museum-loading{position:absolute;inset:0;z-index:5;background:#e1e1d7;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--muted);font-size:11px;letter-spacing:1px;transition:opacity .3s}
+.museum-loading.done{opacity:0;pointer-events:none}
+.loading-mark{font:48px var(--serif);color:#66765b}
+.modal{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;padding:22px;background:#1c2a226b;backdrop-filter:blur(9px)}
+.modal.open{display:flex}
+.modal-panel{position:relative;width:min(650px,100%);max-height:90vh;overflow:auto;background:var(--panel);padding:38px 40px;box-shadow:0 25px 90px #101a1540}
+.modal-close{position:absolute;right:18px;top:13px;border:0;background:none;font-size:27px;color:#596355}
+.modal-panel h2{font:34px var(--serif);font-weight:400;margin:12px 0}
+.modal-panel p{color:var(--muted);line-height:1.8;font-size:13px}
+.art-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.art-card{padding:15px;text-align:left;border:1px solid var(--line);background:transparent;color:var(--ink);transition:background .2s,border-color .2s}
+.art-card:hover,.art-card:focus-visible{background:#ecece3;border-color:#aab3a3}
+.art-card strong{display:block;font:18px var(--serif);font-weight:400;margin-bottom:7px}
+.art-card small{font-size:9px;color:var(--muted);letter-spacing:1px}
+.art-detail-image{display:block;width:min(100%,380px);max-height:43vh;object-fit:contain;margin:18px auto;background:#e8e4d9}
+.key{display:inline-block;padding:3px 7px;background:#e8e9e0;border:1px solid #dfe1d7;border-radius:3px;color:#465244;font-size:11px}
+@media(max-width:700px){
+ .site-header{height:75px;padding:0 5%}.brand-name{font-size:23px;letter-spacing:5px}.brand-subtitle{font-size:8px;letter-spacing:1.5px}.main-nav{gap:8px}.nav-link{font-size:10px;padding:8px 4px}.nav-guide{font-size:10px;padding:9px 11px}
+ .intro{padding:26px 5% 22px}.intro-copy{display:none}h1{font-size:39px}.mobile-break{display:block}
+ .museum-shell{margin:0 2%;padding:4px}.museum{height:calc(100dvh - 225px);min-height:430px;max-height:720px}
+ .museum-topline{left:13px;top:15px;font-size:7px;letter-spacing:1px}.topline-right{display:none}.museum-bottomline{left:13px;right:13px;bottom:13px;font-size:9px}.desktop-hint{display:none}
+ .museum-actions{right:10px;top:9px;gap:5px}.round-btn{width:33px;height:33px}.mobile-pad{display:grid}.under-gallery{padding:16px 5%;font-size:8px}.under-gallery>div:last-child{display:none}
+ .welcome-card{padding:27px}.welcome-card h2{font-size:32px}.inspect-prompt{bottom:62px;left:auto;right:13px;transform:none;font-size:10px}
+ .modal{padding:12px}.modal-panel{padding:32px 22px}.modal-panel h2{font-size:29px}.art-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
