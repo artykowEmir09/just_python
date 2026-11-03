@@ -378,7 +378,7 @@ function buildGallery() {
 
   for (let z = -12; z <= 14; z += 2) {
 
-    addBox(     
+    addBox( 
       13.9,
       0.012,
       0.018,
