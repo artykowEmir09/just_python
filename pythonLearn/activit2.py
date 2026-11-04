@@ -24,4 +24,4 @@ result = proves(
 print("Universal Rule:", premise1)
 print("Fact:", premise2)
 print("Conclusion:", conclusion)
-print("Proof successful:", result)                                  
+print("Proof successful:", result)                                    
