@@ -21,12 +21,12 @@ if __name__ == '__main__':
     total = 0
     correct = 0
     questions = []
-    # while seconds is less than 60
+ 
     while time.time() - start_time <= 60:
         a = random.randint(1, 99)
         op = random.choice(ops)
         if op == '/':
-            # if op is '/' then b is a divisor of a           
+               
             b = get_divisor(a)
         else:
             b = random.randint(1, 99)
@@ -34,7 +34,7 @@ if __name__ == '__main__':
         a_op_b = '{}{}{}'.format(a, op, b)
         c = int(eval(a_op_b))
 
-        # Let user input answer
+      
         try:
             ans = int(input('{} = '.format(a_op_b)))
         except:
