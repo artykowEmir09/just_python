@@ -1,7 +1,7 @@
 import time
 import random
 
-
+           
 def get_divisor(n):
     '''
     Get a random divisor of n.
