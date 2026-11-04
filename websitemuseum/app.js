@@ -380,6 +380,7 @@ function buildGallery() {
 
     addBox(            
       13.9,
+      
       0.012,
       0.018,
       0,
