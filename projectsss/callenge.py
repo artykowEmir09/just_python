@@ -30,7 +30,7 @@ if __name__ == '__main__':
             b = get_divisor(a)
         else:
             b = random.randint(1, 99)
-        # Get the correct answer
+         
         a_op_b = '{}{}{}'.format(a, op, b)
         c = int(eval(a_op_b))
 
