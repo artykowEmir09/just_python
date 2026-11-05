@@ -121,5 +121,5 @@ if __name__ == "__main__":
         while True:     
             check_all(a.dry_run)
             time.sleep(a.loop * 60)
-    else:
+    else:    
         check_all(a.dry_run)
