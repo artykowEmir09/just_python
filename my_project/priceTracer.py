@@ -117,7 +117,7 @@ if __name__ == "__main__":
     a = ap.parse_args()
     if a.history:
         show_history()
-    elif a.loop:
+    elif a.loop:   
         while True:
             check_all(a.dry_run)
             time.sleep(a.loop * 60)
