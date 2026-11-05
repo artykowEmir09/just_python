@@ -118,7 +118,7 @@ if __name__ == "__main__":
     if a.history:
         show_history()
     elif a.loop:            
-        while True:
+        while True:     
             check_all(a.dry_run)
             time.sleep(a.loop * 60)
     else:
