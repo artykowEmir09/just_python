@@ -6,7 +6,7 @@ def show_balance():
     print(f"\nCurrent balance: ${balance:.2f}")
 def deposit():
     global balance
-                          
+               
     try:
         amount = float(input("Enter deposit amount: $"))
 
