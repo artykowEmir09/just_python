@@ -7,4 +7,4 @@ int main() {
     gets(buffer);
     printf("You entered: %s\n", buffer);
     return 0;
-}                       
+}                              
