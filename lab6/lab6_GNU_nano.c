@@ -6,5 +6,5 @@ int main() {
     printf("Enter something: ");
     gets(buffer);
     printf("You entered: %s\n", buffer);
-    return 0;              
+    return 0;                   
 } 
