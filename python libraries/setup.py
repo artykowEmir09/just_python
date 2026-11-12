@@ -25,3 +25,16 @@ from sklearn.metrics import (
 np.random.seed(42)
 
 print("✅ All dependencies successfully loaded!")
+
+# Activity 1 Code: Computing Euclidean & Manhattan distances
+p = np.array([2.0, 3.0])
+q = np.array([5.0, 7.0])
+
+# Euclidean distance
+euclidean_dist = np.linalg.norm(p - q)
+# Manhattan distance
+manhattan_dist = np.sum(np.abs(p - q))
+
+print(f"Point p: {p}, Point q: {q}")
+print(f"Euclidean Distance: {euclidean_dist:.4f}")
+print(f"Manhattan Distance: {manhattan_dist:.4f}")
