@@ -37,4 +37,4 @@ manhattan_dist = np.sum(np.abs(p - q))
 
 print(f"Point p: {p}, Point q: {q}")
 print(f"Euclidean Distance: {euclidean_dist:.4f}")
-print(f"Manhattan Distance: {manhattan_dist:.4f}")
+print(f"Manhattan Distance: {manhattan_dist:.4f}")  
