@@ -37,7 +37,7 @@ print("Dataset shape:", df.shape)
 print("\nFirst 5 rows:")
 print(df.head())
 
-# 2. Select features and target             
+# 2. Select features and target                        
 X = df[["MedInc", "AveRooms"]]
 y = df["MedHouseVal"]
 
