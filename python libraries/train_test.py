@@ -47,7 +47,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 print("\nTraining samples:", len(X_train))
-print("Testing samples:", len(X_test))
+print("Testing samples:", len(X_test))         
 
 # 4. Create KNN regressor
 knn_model = make_pipeline(
