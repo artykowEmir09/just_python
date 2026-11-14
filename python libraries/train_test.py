@@ -26,7 +26,7 @@ if os.path.exists(train_path) and os.path.exists(test_path):
     # Express house values in units of $100,000
     df["MedHouseVal"] = df["MedHouseVal"] / 100000.0
 
-    # Calculate average rooms per household
+    # Calculate average rooms per household           
     df["AveRooms"] = df["AveRooms"] / df["households"]
 else:
     raise FileNotFoundError(
