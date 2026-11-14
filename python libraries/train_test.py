@@ -39,7 +39,7 @@ print(df.head())
 
 # 2. Select features and target                        
 X = df[["MedInc", "AveRooms"]]
-y = df["MedHouseVal"]
+y = df["MedHouseVal"]           
 
 # 3. Split into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(
