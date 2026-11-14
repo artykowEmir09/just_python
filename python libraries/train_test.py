@@ -20,7 +20,7 @@ if os.path.exists(train_path) and os.path.exists(test_path):
     df = df.rename(columns={
         "median_house_value": "MedHouseVal",
         "median_income": "MedInc",
-        "total_rooms": "AveRooms"
+        "total_rooms": "AveRooms"  
     })
 
     # Express house values in units of $100,000
