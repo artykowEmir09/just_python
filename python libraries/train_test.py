@@ -21,7 +21,7 @@ if os.path.exists(train_path) and os.path.exists(test_path):
         "median_house_value": "MedHouseVal",
         "median_income": "MedInc",
         "total_rooms": "AveRooms"  
-    })
+    })           
 
     # Express house values in units of $100,000
     df["MedHouseVal"] = df["MedHouseVal"] / 100000.0
