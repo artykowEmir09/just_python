@@ -29,7 +29,7 @@ if os.path.exists(train_path) and os.path.exists(test_path):
     # Calculate average rooms per household           
     df["AveRooms"] = df["AveRooms"] / df["households"]
 else:
-    raise FileNotFoundError(
+    raise FileNotFoundError(        
         "Colab sample data not found. Please verify /content/sample_data/."
     )
 
