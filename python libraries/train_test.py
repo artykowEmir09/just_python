@@ -33,7 +33,7 @@ else:
         "Colab sample data not found. Please verify /content/sample_data/."
     )
 
-print("Dataset shape:", df.shape)
+print("Dataset shape:", df.shape)       
 print("\nFirst 5 rows:")
 print(df.head())
 
