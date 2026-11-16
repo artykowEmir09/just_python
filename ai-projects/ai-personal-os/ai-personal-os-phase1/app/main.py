@@ -10,7 +10,7 @@ from app.database import Base, engine
 async def lifespan(app: FastAPI):
     # Runs once at startup: create any missing tables.
     Base.metadata.create_all(bind=engine)
-    yield
+    yield    
 
 
 app = FastAPI(title="AI Personal OS", version="0.1.0", lifespan=lifespan)
