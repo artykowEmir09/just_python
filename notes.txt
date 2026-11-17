@@ -53,3 +53,29 @@ cd ..	Moves one directory backwards
 mkdir test	Creates a folder named test
 clear	Clears the terminal
 cd ~	Moves to your home directory
+
+1. python -m venv .venv
+Purpose: Creates a virtual environment for your Python project.
+
+Let's break it down:
+Part	Meaning
+python	Runs the Python interpreter
+-m	Runs a Python module as a script
+venv	Python's built-in virtual environment module
+.venv	Name of the environment folder
+
+What happens?
+
+Python creates a folder called .venv inside your project.
+
+Your structure becomes:
+my-personal-os/
+
+.venv/
+New
+
+ Scripts/
+
+ Lib/
+
+ pyvenv.cfg
