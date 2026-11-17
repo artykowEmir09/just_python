@@ -18,5 +18,5 @@ app = FastAPI(title="AI Personal OS", version="0.1.0", lifespan=lifespan)
 
 @app.get("/health", tags=["System"])            
 def health():
-    return {"status": "ok"}              
+    return {"status": "ok"}                            
                                                        
