@@ -89,4 +89,4 @@ Without separate environments, package versions can conflict.
 
 With virtual environments, each project can have its own dependencies.
 
-Think of a virtual environment as a separate workspace for Python packages.   
+Think of a virtual environment as a separate workspace for Python packages.       
