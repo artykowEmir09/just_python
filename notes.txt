@@ -1,0 +1,55 @@
+1. mkdir my-personal-os
+Purpose: Creates a new directory (folder).
+- mkdir = Make Directory.
+- my-personal-os = The name of the folder you want to create.
+Example:
+mkdir my-personal-os
+
+
+PowerShell creates this folder in your current working directory.
+
+For example, if you are currently in:
+C:\Users\USER\Desktop
+
+
+The new folder will be:
+C:\Users\USER\Desktop\my-personal-os
+
+
+2. cd my-personal-os
+Purpose: Moves you into the folder you just created.
+- cd = Change Directory.
+- my-personal-os = The destination folder.
+Example:
+cd my-personal-os
+
+
+Your PowerShell location changes from:
+PS C:\Users\USER\Desktop>
+
+
+To:
+PS C:\Users\USER\Desktop\my-personal-os>
+
+
+3. What happens when you combine them?
+mkdir my-personal-os
+cd my-personal-os
+
+
+Your folder structure
+Desktop
+
+my-personal-os
+Current directory
+
+
+
+4. Try these additional commands
+Command	Purpose
+pwd	Shows your current directory
+ls	Lists files and folders
+cd ..	Moves one directory backwards
+mkdir test	Creates a folder named test
+clear	Clears the terminal
+cd ~	Moves to your home directory
