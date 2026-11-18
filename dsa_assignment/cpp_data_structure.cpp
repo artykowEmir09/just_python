@@ -282,15 +282,4 @@ int getValidInt() {
     return input;
 }
 
-int main() {
-    EventSystem sys;
-    int choice;
-    sys.registerParticipant(101, "Alice Smith", "AI Seminar");
-
-    do {
-        cout << "\n1. Register\n2. Remove\n3. Update\n4. Search\n5. Display Sorted\n6. Join Waitlist\n7. Process Waitlist\n8. Binary Search\n0. Exit\nChoice: ";
-        choice = getValidInt();
-        int id; string name;
-
-        switch(choice) {
-  
+ 
