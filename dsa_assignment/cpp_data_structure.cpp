@@ -194,11 +194,4 @@ public:
         }
     }
 
-    void joinWaitlist(int id) {
-        Participant* p = searchByIdInternal(id);
-        if(!p) {
-            cout << "Error: Participant ID not found in system. Register or add record first.\n";
-            return;
-        }
-
  
