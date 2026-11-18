@@ -233,14 +233,4 @@ public:
             cout << "Event Name     : N/A\n";
         }
         cout << "Capacity       : " << cap << "\n";
-        cout << "Registered     : " << reg << "\n";
-        cout << "Waitlist       : " << (waitCount > 0 ? waitCount - 1 : 0) << "\n";
-        cout << "----------------------------------------\n";
-
-        WaitNode* t = front;
-        front = front->next;
-        delete t;
-        if(!front) rear = NULL;
-    }
-
  
