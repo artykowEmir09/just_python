@@ -182,16 +182,4 @@ public:
         cout << "1. By ID\n2. By Name\nChoice: "; cin >> choice;
         if(choice == 1) {
             int id; cout << "ID: "; cin >> id;
-            Participant* p = searchByIdInternal(id);
-            if(p) displaySingle(p); else cout << "Not Found.\n";
-        } else if(choice == 2) {
-            string name; cout << "Name: "; cin.ignore(); getline(cin, name);
-            bool found = false;
-            for(Participant* t = head; t; t = t->next) {
-                if(t->name == name) { displaySingle(t); found = true; }
-            }
-            if(!found) cout << "Not Found.\n";
-        }
-    }
-
  
