@@ -300,26 +300,4 @@ int main() {
 
                 cout << "\n--- Available Events & Capacity ---" << endl;
                 vector<EventInfo>& events = sys.getEvents();
-                for (size_t i = 0; i < events.size(); i++) {
-                    int available = events[i].capacity - events[i].registeredCount;
-                    cout << i + 1 << ". " << events[i].name 
-                         << " [Capacity: " << events[i].capacity 
-                         << ", Registered: " << events[i].registeredCount 
-                         << ", Available: " << (available > 0 ? available : 0) << "]\n";
-                }
-                cout << "0. Enter Custom Event Name\n";
-                cout << "Select event option: ";
-                
-                int eventChoice = getValidInt();
-                string eventName = "";
-
-                if (eventChoice > 0 && eventChoice <= (int)events.size()) {
-                    eventName = events[eventChoice - 1].name;
-                } else {
-                    cin.ignore();
-                    cout << "Enter Custom Event Name: ";
-                    getline(cin, eventName);
-                }
-
-                sys.registerParticipant(id, name, eventName);
-                break;
+ 
