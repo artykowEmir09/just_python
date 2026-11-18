@@ -214,23 +214,4 @@ public:
             return;
         }
 
-        int processedId = front->participantId;
-        Participant* p = searchByIdInternal(processedId);
-        
-        string evName = p ? p->eventName : "Unknown";
-        EventInfo* ev = findEvent(evName);
-        int cap = ev ? ev->capacity : 0;
-        int reg = ev ? ev->registeredCount : 0;
-        int waitCount = getWaitlistCountForEvent(evName);
-
-        cout << "\n----------------------------------------\n";
-        cout << "PARTICIPANT ID : P" << processedId << "\n";
-        if (p) {
-            cout << "Name           : " << p->name << "\n";
-            cout << "Event Name     : " << p->eventName << "\n";
-        } else {
-            cout << "Name           : [Record Not Found]\n";
-            cout << "Event Name     : N/A\n";
-        }
-        cout << "Capacity       : " << cap << "\n";
  
