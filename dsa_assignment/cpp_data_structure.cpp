@@ -6,6 +6,17 @@
 
 using namespace std;
 
+// --- ANSI Color Codes ---
+const string RESET   = "\033[0m";
+const string BOLD    = "\033[1m";
+const string RED     = "\033[31m";
+const string GREEN   = "\033[32m";
+const string YELLOW  = "\033[33m";
+const string BLUE    = "\033[34m";
+const string MAGENTA = "\033[35m";
+const string CYAN    = "\033[36m";
+const string WHITE   = "\033[37m";
+
 struct EventInfo {
     string name;
     int capacity;
@@ -134,6 +145,42 @@ private:
         }
     }
 
+    // Helper to promote waitlisted user for a specific event when a slot frees up
+    void checkAndPromoteWaitlist(string eventName) {
+        EventInfo* ev = findEvent(eventName);
+        if (!ev || ev->registeredCount >= ev->capacity) return;
+
+        WaitNode* waitTemp = front;
+        WaitNode* prevWait = NULL;
+        while(waitTemp) {
+            if(waitTemp->eventName == eventName) {
+                int promotedId = waitTemp->participantId;
+                Participant* promotedParticipant = searchByIdInternal(promotedId);
+                if(promotedParticipant) {
+                    promotedParticipant->registered = true;
+                    promotedParticipant->waitlisted = false;
+                    ev->registeredCount++;
+                    cout << CYAN << "\n┌────────────────────────────────────────────────────────┐\n";
+                    cout << "│ [⚡] AUTO-PROMOTION FROM WAITLIST                      │\n";
+                    cout << "│ " << left << setw(53) << (promotedParticipant->name + " promoted to Registered for '" + eventName + "'") << " │\n";
+                    cout << "└────────────────────────────────────────────────────────┘" << RESET << "\n";
+                }
+
+                if(prevWait == NULL) {
+                    front = waitTemp->next;
+                    if(!front) rear = NULL;
+                } else {
+                    prevWait->next = waitTemp->next;
+                    if(waitTemp == rear) rear = prevWait;
+                }
+                delete waitTemp;
+                break;
+            }
+            prevWait = waitTemp;
+            waitTemp = waitTemp->next;
+        }
+    }
+
 public:
     EventSystem() : head(NULL), front(NULL), rear(NULL) {
         events = {
@@ -158,13 +205,12 @@ public:
 
     void registerParticipant(int id, string name, string eventName) {
         if(searchByIdInternal(id)) { 
-            cout << "Error: ID already exists in the system.\n"; 
+            cout << RED << "\n[✖] Error: Participant ID [P" << id << "] already exists in the system." << RESET << "\n"; 
             return; 
         }
         
         EventInfo* ev = findEvent(eventName);
         if(!ev) {
-            // If custom event, add it dynamically with capacity 5
             events.push_back({eventName, 5, 0});
             ev = findEvent(eventName);
         }
@@ -180,8 +226,10 @@ public:
 
             addToWaitlistQueue(id, name, eventName);
 
-            cout << "Event '" << eventName << "' is Full.\n";
-            cout << "Success: " << name << " automatically added to the waitlist.\n";
+            cout << YELLOW << "\n┌────────────────────────────────────────────────────────┐\n";
+            cout << "│ [!] NOTICE: Event '" << eventName << "' is at Full Capacity!      │\n";
+            cout << "│ [✔] " << left << setw(50) << (name + " added to waitlist queue.") << " │\n";
+            cout << "└────────────────────────────────────────────────────────┘" << RESET << "\n";
             return;
         }
 
@@ -194,19 +242,18 @@ public:
         }
 
         ev->registeredCount++;
-        cout << "Success: Participant Registered for '" << eventName << "'.\n";
+        cout << GREEN << "\n[✔] Success: [" << name << "] successfully registered for '" << eventName << "'." << RESET << "\n";
     }
 
     void removeParticipant(int id) {
-        if(!head) { cout << "No participants found in the system.\n"; return; }
+        if(!head) { cout << YELLOW << "\n[ℹ] System Notice: No participants registered currently." << RESET << "\n"; return; }
         
         Participant* target = searchByIdInternal(id);
-        if(!target) { cout << "Error: Participant Not Found.\n"; return; }
+        if(!target) { cout << RED << "\n[✖] Error: Participant ID [P" << id << "] Not Found." << RESET << "\n"; return; }
 
         string eventName = target->eventName;
         bool wasRegistered = target->registered;
 
-        // Remove from linked list
         if(head->id == id) {
             Participant* t = head; head = head->next; delete t;
         } else {
@@ -219,54 +266,61 @@ public:
 
         if(wasRegistered) {
             if(ev && ev->registeredCount > 0) ev->registeredCount--;
-
-            // Check if there is someone waiting in the queue for this event
-            WaitNode* waitTemp = front;
-            WaitNode* prevWait = NULL;
-            while(waitTemp) {
-                if(waitTemp->eventName == eventName) {
-                    // Found first person on waitlist for this event! Promote them.
-                    int promotedId = waitTemp->participantId;
-                    Participant* promotedParticipant = searchByIdInternal(promotedId);
-                    if(promotedParticipant) {
-                        promotedParticipant->registered = true;
-                        promotedParticipant->waitlisted = false;
-                        if(ev) ev->registeredCount++;
-                        cout << "Promotion: " << promotedParticipant->name 
-                             << " has been moved from the waitlist to Registered for '" << eventName << "'.\n";
-                    }
-
-                    // Remove from waitlist queue
-                    if(prevWait == NULL) {
-                        front = waitTemp->next;
-                        if(!front) rear = NULL;
-                    } else {
-                        prevWait->next = waitTemp->next;
-                        if(waitTemp == rear) rear = prevWait;
-                    }
-                    delete waitTemp;
-                    break;
-                }
-                prevWait = waitTemp;
-                waitTemp = waitTemp->next;
-            }
+            checkAndPromoteWaitlist(eventName);
         } else {
-            // Was on waitlist only
             removeFromWaitlistQueue(id);
         }
 
-        cout << "Success: Participant Removed & System Updated.\n";
+        cout << GREEN << "[✔] Success: Participant P" << id << " removed and capacity updated." << RESET << "\n";
     }
 
-    void updateParticipant(int id) {
+    void updateParticipant(int id, string newName, string newEventName) {
         Participant* p = searchByIdInternal(id);
-        if(!p) { cout << "Error: Participant Not Found.\n"; return; }
+        if(!p) { 
+            cout << RED << "\n[✖] Error: Participant P" << id << " Not Found." << RESET << "\n"; 
+            return; 
+        }
         
-        cout << "Current Name: " << p->name << " | Event: " << p->eventName << "\nEnter New Name: ";
-        cin.ignore(); 
-        getline(cin, p->name);
-        
-        cout << "Success: Participant Name Updated.\n";
+        string oldEventName = p->eventName;
+        bool wasRegistered = p->registered;
+
+        // Update Name
+        p->name = newName;
+
+        // If event is changing, adjust counts and statuses
+        if (oldEventName != newEventName) {
+            // 1. Handle old event adjustment
+            if (wasRegistered) {
+                EventInfo* oldEv = findEvent(oldEventName);
+                if (oldEv && oldEv->registeredCount > 0) oldEv->registeredCount--;
+                checkAndPromoteWaitlist(oldEventName);
+            } else {
+                removeFromWaitlistQueue(id);
+            }
+
+            // 2. Handle new event placement
+            EventInfo* newEv = findEvent(newEventName);
+            if (!newEv) {
+                events.push_back({newEventName, 5, 0});
+                newEv = findEvent(newEventName);
+            }
+
+            p->eventName = newEventName;
+
+            if (newEv->registeredCount >= newEv->capacity) {
+                p->registered = false;
+                p->waitlisted = true;
+                addToWaitlistQueue(id, newName, newEventName);
+                cout << YELLOW << "\n[!] Notice: New event '" << newEventName << "' is full. Participant moved to waitlist." << RESET << "\n";
+            } else {
+                p->registered = true;
+                p->waitlisted = false;
+                newEv->registeredCount++;
+                cout << GREEN << "[✔] Success: Participant successfully transferred and registered for '" << newEventName << "'." << RESET << "\n";
+            }
+        } else {
+            cout << GREEN << "[✔] Success: Participant name updated successfully." << RESET << "\n";
+        }
     }
 
     void displaySingle(Participant* p) {
@@ -275,45 +329,46 @@ public:
         int reg = ev ? ev->registeredCount : 0;
         int waitCount = getWaitlistCountForEvent(p->eventName);
 
-        cout << "\n----------------------------------------\n";
-        cout << "PARTICIPANT ID : P" << p->id << "\n";
-        cout << "Name           : " << p->name << "\n";
-        cout << "Event Name     : " << p->eventName << "\n";
-        cout << "Status         : " << (p->registered ? "Registered" : "Waitlisted") << "\n";
-        cout << "Event Capacity : " << cap << "\n";
-        cout << "Registered     : " << reg << "\n";
-        cout << "Waitlist Total : " << waitCount << "\n";
-        cout << "----------------------------------------\n";
+        cout << CYAN << "\n╔════════════════════════════════════════╗\n";
+        cout << "║          PARTICIPANT PROFILE           ║\n";
+        cout << "╠════════════════════════════════════════╣\n";
+        cout << "║ ID           : P" << left << setw(22) << p->id << " ║\n";
+        cout << "║ Name         : " << left << setw(23) << p->name << " ║\n";
+        cout << "║ Event        : " << left << setw(23) << p->eventName << " ║\n";
+        cout << "║ Status       : " << left << setw(23) << (p->registered ? "Registered [✔]" : "Waitlisted [⏳]") << " ║\n";
+        cout << "║ Slot Usage   : " << reg << " / " << left << setw(19) << cap << " ║\n";
+        cout << "║ Event Waitlist: " << left << setw(22) << waitCount << " ║\n";
+        cout << "╚════════════════════════════════════════╝" << RESET << "\n";
     }
 
     void searchParticipant() {
         int choice;
+        cout << CYAN << "\n--- Search Menu ---\n" << RESET;
         cout << "1. Search by ID\n2. Search by Name\nChoice: "; 
         cin >> choice;
         if(choice == 1) {
             int id; cout << "Enter ID: "; cin >> id;
             Participant* p = searchByIdInternal(id);
-            if(p) displaySingle(p); else cout << "Participant Not Found.\n";
+            if(p) displaySingle(p); else cout << RED << "\n[✖] Participant ID P" << id << " Not Found." << RESET << "\n";
         } else if(choice == 2) {
             string name; cout << "Enter Name: "; cin.ignore(); getline(cin, name);
             bool found = false;
             for(Participant* t = head; t; t = t->next) {
                 if(t->name == name) { displaySingle(t); found = true; }
             }
-            if(!found) cout << "No participants found with that name.\n";
+            if(!found) cout << RED << "\n[✖] No participants found matching '" << name << "'." << RESET << "\n";
         } else {
-            cout << "Invalid choice.\n";
+            cout << RED << "[✖] Invalid choice." << RESET << "\n";
         }
     }
 
     void processWaitlist() {
         if(!front) {
-            cout << "Waitlist Queue is Empty.\n";
+            cout << YELLOW << "\n[ℹ] Waitlist Queue is currently empty." << RESET << "\n";
             return;
         }
 
         WaitNode* temp = front;
-        // Promote front waitlist member
         Participant* p = searchByIdInternal(temp->participantId);
         EventInfo* ev = findEvent(temp->eventName);
 
@@ -322,62 +377,58 @@ public:
             p->waitlisted = false;
             ev->registeredCount++;
 
-            cout << "\n=============================================================\n";
-            cout << "               PROCESSED & REGISTERED FROM WAITLIST\n";
-            cout << "=============================================================\n";
-            cout << left << setw(15) << "ID: P" + to_string(temp->participantId)
-                 << setw(25) << "NAME: " + temp->participantName
-                 << setw(30) << "EVENT: " + temp->eventName << endl;
-            cout << "=============================================================\n";
+            cout << GREEN << "\n╔═══════════════════════════════════════════════════════════╗\n";
+            cout << "║          MANUALLY PROCESSED FROM WAITLIST QUEUE           ║\n";
+            cout << "╠═══════════════════════════════════════════════════════════╣\n";
+            cout << "║ ID    : P" << left << setw(48) << temp->participantId << "║\n";
+            cout << "║ Name  : " << left << setw(49) << temp->participantName << "║\n";
+            cout << "║ Event : " << left << setw(49) << temp->eventName << "║\n";
+            cout << "╚═══════════════════════════════════════════════════════════╝" << RESET << "\n";
 
             front = front->next;
             if(!front) rear = NULL;
             delete temp;
         } else {
-            cout << "Cannot process waitlist: Event '" << temp->eventName << "' is still at full capacity.\n";
+            cout << YELLOW << "\n[!] Notice: Event '" << temp->eventName << "' is still at full capacity. Promotion deferred." << RESET << "\n";
         }
     }
 
     void displayWaitlist() {
         if(front == NULL) {
-            cout << "\nWaitlist Queue is Empty.\n";
+            cout << YELLOW << "\n┌────────────────────────────────────────┐\n";
+            cout << "│          WAITLIST QUEUE IS EMPTY       │\n";
+            cout << "└────────────────────────────────────────┘" << RESET << "\n";
             return;
         }
 
-        cout << "\n";
-        cout << "========================================================================\n";
-        cout << "                            WAITLIST QUEUE\n";
-        cout << "========================================================================\n";
-
-        cout << left
-             << setw(10) << "POS"
-             << setw(10) << "ID"
-             << setw(25) << "NAME"
-             << setw(25) << "EVENT"
-             << endl;
-
-        cout << "------------------------------------------------------------------------\n";
+        cout << CYAN << "\n";
+        cout << "┌──────┬──────┬──────────────────────────┬──────────────────────────┐\n";
+        cout << "│ POS  │ ID   │ NAME                     │ EVENT                    │\n";
+        cout << "├──────┼──────┼──────────────────────────┼──────────────────────────┤\n";
 
         WaitNode* temp = front;
         int position = 1;
 
         while(temp != NULL) {
-            cout << left
-                 << setw(10) << position
-                 << setw(10) << ("P" + to_string(temp->participantId))
-                 << setw(25) << temp->participantName
-                 << setw(25) << temp->eventName
-                 << endl;
-
+            cout << "│ " << left << setw(4) << position 
+                 << " │ P" << left << setw(4) << temp->participantId 
+                 << " │ " << left << setw(24) << temp->participantName 
+                 << " │ " << left << setw(24) << temp->eventName << " │\n";
             temp = temp->next;
             position++;
         }
 
-        cout << "========================================================================\n";
+        cout << "└──────┴──────┴──────────────────────────┴──────────────────────────┘" << RESET << "\n";
     }
 
     void bubbleSortDisplay() {
-        if(!head) { cout << "No participants found in the system.\n"; return; }
+        if(!head) { 
+            cout << YELLOW << "\n┌────────────────────────────────────────┐\n";
+            cout << "│      NO PARTICIPANTS FOUND IN SYSTEM   │\n";
+            cout << "└────────────────────────────────────────┘" << RESET << "\n"; 
+            return; 
+        }
+
         vector<ParticipantView> arr;
         for(Participant* t = head; t; t = t->next) {
             arr.push_back({t->id, t->name, t->eventName, t->registered, t->waitlisted});
@@ -387,34 +438,42 @@ public:
             for(size_t j = 0; j < arr.size() - i - 1; j++)
                 if(arr[j].name > arr[j+1].name) swap(arr[j], arr[j+1]);
 
-        cout << "\n--- Participants Sorted By Name ---\n";
-        cout << left << setw(10) << "ID" << setw(25) << "Name" << setw(28) << "Event" << setw(15) << "Status" << endl;
+        cout << CYAN << "\n";
+        cout << "=================================================================================\n";
+        cout << "                         ALL REGISTERED PARTICIPANTS                             \n";
+        cout << "=================================================================================\n" << RESET;
+        cout << left << setw(10) << "ID" << setw(26) << "Name" << setw(28) << "Event" << setw(18) << "Status" << endl;
         cout << "---------------------------------------------------------------------------------\n";
         for(const auto& p : arr) {
+            string status = p.registered ? (GREEN + "Registered [✔]" + RESET) : (YELLOW + "Waitlisted [⏳]" + RESET);
             cout << left << setw(10) << ("P" + to_string(p.id)) 
-                 << setw(25) << p.name 
+                 << setw(26) << p.name 
                  << setw(28) << p.eventName 
-                 << setw(15) << (p.registered ? "Registered" : "Waitlisted") << endl;
+                 << setw(28) << status << endl;
         }
+        cout << CYAN << "=================================================================================\n" << RESET;
     }
 
     void binarySearchParticipant() {
-        if(!head) { cout << "No participants found in the system.\n"; return; }
+        if(!head) { cout << YELLOW << "\n[ℹ] No participants found in system." << RESET << "\n"; return; }
         vector<int> ids;
         for(Participant* t = head; t; t = t->next) ids.push_back(t->id);
         mergeSort(ids, 0, ids.size() - 1);
 
-        int target; cout << "Enter ID to search: "; cin >> target;
+        int target; 
+        cout << "\n[Binary Search] Enter Participant ID to check: P"; 
+        cin >> target;
+        
         int low = 0, high = ids.size() - 1;
         while(low <= high) {
             int mid = low + (high - low) / 2;
             if(ids[mid] == target) { 
-                cout << "Result: Participant ID P" << target << " exists in the system.\n"; 
+                cout << GREEN << "[✔] Result: Participant [P" << target << "] exists in the system registry." << RESET << "\n"; 
                 return; 
             }
             if(ids[mid] < target) low = mid + 1; else high = mid - 1;
         }
-        cout << "Result: Participant ID P" << target << " Not Found.\n";
+        cout << RED << "[✖] Result: Participant [P" << target << "] Not Found." << RESET << "\n";
     }
 };
 
@@ -423,7 +482,7 @@ int getValidInt() {
     while (!(cin >> input)) {
         cin.clear(); 
         cin.ignore(10000, '\n');
-        cout << "Invalid input! Enter a valid number: ";
+        cout << RED << "[✖] Invalid input! Please enter a valid number: " << RESET;
     }
     return input;
 }
@@ -432,25 +491,25 @@ int main() {
     EventSystem sys;
     int choice;
 
-    // Register initial default participant safely
+    // Default entry
     sys.registerParticipant(101, "Alice Smith", "AI Seminar");
 
     do {
         cout << "\n";
-        cout << "=====================================================\n";
-        cout << "        CAMPUS EVENT REGISTRATION SYSTEM\n";
-        cout << "=====================================================\n";
-        cout << "1. Register Participant\n";
-        cout << "2. Remove Participant\n";
-        cout << "3. Update Participant Name\n";
-        cout << "4. Search Participant\n";
-        cout << "5. Display All Participants (Sorted by Name)\n";
-        cout << "6. Manually Process Waitlist Queue\n";
-        cout << "7. Display Waitlist Queue\n";
-        cout << "8. Binary Search Participant by ID\n";
-        cout << "0. Exit\n";
-        cout << "=====================================================\n";
-        cout << "Choice: ";
+        cout << CYAN << BOLD << "╔═══════════════════════════════════════════════════╗\n";
+        cout << "║         CAMPUS EVENT REGISTRATION SYSTEM          ║\n";
+        cout << "╠═══════════════════════════════════════════════════╣\n";
+        cout << "║ 1. Register Participant                           ║\n";
+        cout << "║ 2. Remove Participant & Update Capacity           ║\n";
+        cout << "║ 3. Update Participant Name & Event                ║\n";
+        cout << "║ 4. Search Participant (ID or Name)                ║\n";
+        cout << "║ 5. Display All Participants (Sorted Table)        ║\n";
+        cout << "║ 6. Manually Process Waitlist Queue                ║\n";
+        cout << "║ 7. Display Waitlist Queue                         ║\n";
+        cout << "║ 8. Binary Search Participant by ID                ║\n";
+        cout << "║ 0. Exit System                                    ║\n";
+        cout << "╚═══════════════════════════════════════════════════╝\n" << RESET;
+        cout << YELLOW << " Select Option ➔ " << RESET;
         
         choice = getValidInt();
 
@@ -458,23 +517,26 @@ int main() {
             case 1: {
                 int id;
                 string name;
-                cout << "Enter Participant ID (numeric): "; 
+                cout << CYAN << "\n--- New Registration --- \n" << RESET;
+                cout << "Enter Participant ID (numeric): P"; 
                 id = getValidInt();
                 cin.ignore(); 
                 cout << "Enter Full Name: "; 
                 getline(cin, name);
 
-                cout << "\n--- Available Events & Capacity ---" << endl;
+                cout << CYAN << "\n┌────────────────────────────────────────┐\n";
+                cout << "│        AVAILABLE CAMPUS EVENTS         │\n";
+                cout << "└────────────────────────────────────────┘\n" << RESET;
                 vector<EventInfo>& events = sys.getEvents();
                 for (size_t i = 0; i < events.size(); i++) {
                     int available = events[i].capacity - events[i].registeredCount;
-                    cout << i + 1 << ". " << events[i].name 
-                         << " [Capacity: " << events[i].capacity 
-                         << ", Registered: " << events[i].registeredCount 
-                         << ", Available Spots: " << (available > 0 ? available : 0) << "]\n";
+                    cout << " " << i + 1 << ". " << events[i].name 
+                         << " \n    [Capacity: " << events[i].capacity 
+                         << " | Registered: " << events[i].registeredCount 
+                         << " | Available: " << (available > 0 ? available : 0) << "]\n";
                 }
-                cout << "0. Enter Custom Event Name\n";
-                cout << "Select event option: ";
+                cout << " 0. Enter Custom Event Name\n";
+                cout << YELLOW << " Select option ➔ " << RESET;
                 
                 int eventChoice = getValidInt();
                 string eventName = "";
@@ -483,7 +545,7 @@ int main() {
                     eventName = events[eventChoice - 1].name;
                 } else {
                     cin.ignore();
-                    cout << "Enter Custom Event Name: ";
+                    cout << " Enter Custom Event Name: ";
                     getline(cin, eventName);
                 }
 
@@ -491,13 +553,46 @@ int main() {
                 break;
             }
             case 2: {
-                cout << "Enter Participant ID to remove: "; 
+                cout << "\n[Removal Tool] Enter Participant ID to remove: P"; 
                 sys.removeParticipant(getValidInt()); 
                 break;
             }
             case 3: {
-                cout << "Enter Participant ID to update: "; 
-                sys.updateParticipant(getValidInt()); 
+                int id;
+                cout << "\n[Update Tool] Enter Participant ID to update: P"; 
+                id = getValidInt();
+                cin.ignore();
+
+                string newName;
+                cout << "Enter New Name: ";
+                getline(cin, newName);
+
+                cout << CYAN << "\n┌────────────────────────────────────────┐\n";
+                cout << "│        SELECT NEW EVENT TARGET         │\n";
+                cout << "└────────────────────────────────────────┘\n" << RESET;
+                vector<EventInfo>& events = sys.getEvents();
+                for (size_t i = 0; i < events.size(); i++) {
+                    int available = events[i].capacity - events[i].registeredCount;
+                    cout << " " << i + 1 << ". " << events[i].name 
+                         << " \n    [Capacity: " << events[i].capacity 
+                         << " | Registered: " << events[i].registeredCount 
+                         << " | Available: " << (available > 0 ? available : 0) << "]\n";
+                }
+                cout << " 0. Enter Custom Event Name\n";
+                cout << YELLOW << " Select option ➔ " << RESET;
+
+                int eventChoice = getValidInt();
+                string newEventName = "";
+
+                if (eventChoice > 0 && eventChoice <= (int)events.size()) {
+                    newEventName = events[eventChoice - 1].name;
+                } else {
+                    cin.ignore();
+                    cout << " Enter Custom Event Name: ";
+                    getline(cin, newEventName);
+                }
+
+                sys.updateParticipant(id, newName, newEventName);
                 break;
             }
             case 4: 
@@ -516,10 +611,10 @@ int main() {
                 sys.binarySearchParticipant(); 
                 break;
             case 0: 
-                cout << "Exiting program. Thank you!\n"; 
+                cout << GREEN << "\n[ℹ] Exiting program. Have a great day!\n\n" << RESET; 
                 break;
             default: 
-                cout << "Invalid choice! Please choose between 0 and 8.\n";
+                cout << RED << "\n[✖] Invalid choice! Please select an option between 0 and 8." << RESET << "\n";
         }
     } while(choice != 0);
 
