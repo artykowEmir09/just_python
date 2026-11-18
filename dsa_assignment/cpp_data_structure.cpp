@@ -256,17 +256,4 @@ public:
         for(const auto& p : arr) cout << p.id << " | " << p.name << " | " << p.eventName << endl;
     }
 
-    void binarySearchParticipant() {
-        if(!head) { cout << "No participants found.\n"; return; }
-        vector<int> ids;
-        for(Participant* t = head; t; t = t->next) ids.push_back(t->id);
-        mergeSort(ids, 0, ids.size() - 1);
-
-        int target; cout << "Enter ID to search: "; cin >> target;
-        int low = 0, high = ids.size() - 1;
-        while(low <= high) {
-            int mid = low + (high - low) / 2;
-            if(ids[mid] == target) { cout << "Participant Exists.\n"; return; }
-            if(ids[mid] < target) low = mid + 1; else high = mid - 1;
-        }
  
