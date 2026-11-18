@@ -119,12 +119,4 @@ public:
         Participant* newNode = new Participant(id, name, eventName);
         if(!head) head = newNode;
         else {
-            Participant* temp = head;
-            while(temp->next) temp = temp->next;
-            temp->next = newNode;
-        }
-
-        if(ev) ev->registeredCount++;
-        cout << "Success: Participant Registered for '" << eventName << "'.\n";
-    }
- 
+  
