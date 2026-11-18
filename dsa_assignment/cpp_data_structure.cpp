@@ -127,17 +127,4 @@ public:
         if(ev) ev->registeredCount++;
         cout << "Success: Participant Registered for '" << eventName << "'.\n";
     }
-
-    void removeParticipant(int id) {
-        if(!head) { cout << "No participants found.\n"; return; }
-        
-        Participant* target = searchByIdInternal(id);
-        if(!target) { cout << "Error: Participant Not Found.\n"; return; }
-
-        string eventName = target->eventName;
-
-        if(head->id == id) {
-            Participant* t = head; head = head->next; delete t;
-        } else {
-            Participant* temp = head;
-   
+ 
