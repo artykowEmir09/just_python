@@ -323,18 +323,3 @@ int main() {
 
                 sys.registerParticipant(id, name, eventName);
                 break;
-            }
-            case 2: cout << "ID: "; sys.removeParticipant(getValidInt()); break;
-            case 3: cout << "ID: "; sys.updateParticipant(getValidInt()); break;
-            case 4: sys.searchParticipant(); break;
-            case 5: sys.bubbleSortDisplay(); break;
-            case 6: cout << "Participant ID to join waitlist: "; sys.joinWaitlist(getValidInt()); break;
-            case 7: sys.processWaitlist(); break;
-            case 8: sys.binarySearchParticipant(); break;
-            case 0: cout << "Exiting...\n"; break;
-            default: cout << "Invalid choice!\n";
-        }
-    } while(choice != 0);
-
-    return 0;
-}       
