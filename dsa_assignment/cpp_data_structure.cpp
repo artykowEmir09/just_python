@@ -201,17 +201,4 @@ public:
             return;
         }
 
-        WaitNode* newNode = new WaitNode(id);
-        if(!rear) front = rear = newNode;
-        else { rear->next = newNode; rear = newNode; }
-        
-        cout << "Success: Participant ID P" << id << " added to waitlist for '" << p->eventName << "'.\n";
-    }
-
-    void processWaitlist() {
-        if(!front) {
-            cout << "Waitlist Empty.\n";
-            return;
-        }
-
  
