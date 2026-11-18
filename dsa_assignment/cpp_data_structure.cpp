@@ -149,16 +149,4 @@ public:
 
         cout << "Success: Participant Removed & Capacity Updated.\n";
     }
-
-    void updateParticipant(int id) {
-        Participant* p = searchByIdInternal(id);
-        if(!p) { cout << "Error: Not Found.\n"; return; }
-        
-        string oldEvent = p->eventName;
-        cout << "Current Name: " << p->name << " | Event: " << p->eventName << "\nEnter New Name: ";
-        cin.ignore(); getline(cin, p->name);
-        
-        cout << "Success: Updated.\n";
-    }
-
  
