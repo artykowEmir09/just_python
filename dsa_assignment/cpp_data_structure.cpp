@@ -177,9 +177,4 @@ public:
         cout << "----------------------------------------\n";
     }
 
-    void searchParticipant() {
-        int choice;
-        cout << "1. By ID\n2. By Name\nChoice: "; cin >> choice;
-        if(choice == 1) {
-            int id; cout << "ID: "; cin >> id;
  
