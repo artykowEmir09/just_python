@@ -168,13 +168,4 @@ public:
         int waitCount = getWaitlistCountForEvent(p->eventName);
 
         cout << "\n----------------------------------------\n";
-        cout << "PARTICIPANT ID : P" << p->id << "\n";
-        cout << "Name           : " << p->name << "\n";
-        cout << "Event Name     : " << p->eventName << "\n";
-        cout << "Capacity       : " << cap << "\n";
-        cout << "Registered     : " << reg << "\n";
-        cout << "Waitlist       : " << waitCount << "\n";
-        cout << "----------------------------------------\n";
-    }
-
  
