@@ -14,16 +14,44 @@ struct EventInfo {
 
 struct Participant {
     int id;
-    string name, eventName;
+    string name;
+    string eventName;
+
     bool registered;
+    bool waitlisted;
+
     Participant* next;
-    Participant(int i, string n, string e) : id(i), name(n), eventName(e), registered(true), next(NULL) {}
+
+    Participant(int i,string n,string e)
+    {
+        id = i;
+        name = n;
+        eventName = e;
+
+        registered = true;
+        waitlisted = false;
+
+        next = NULL;
+    }
 };
 
 struct WaitNode {
+
     int participantId;
+    string participantName;
+    string eventName;
+
     WaitNode* next;
-    WaitNode(int id) : participantId(id), next(NULL) {}
+
+    WaitNode(int id,
+             string name,
+             string event)
+    {
+        participantId = id;
+        participantName = name;
+        eventName = event;
+        next = NULL;
+    }
 };
 
 struct ParticipantView {
@@ -111,10 +139,24 @@ public:
         if(searchByIdInternal(id)) { cout << "Error: ID already exists.\n"; return; }
         
         EventInfo* ev = findEvent(eventName);
-        if(ev && ev->registeredCount >= ev->capacity) {
-            cout << "Error: Event '" << eventName << "' is at full capacity (" << ev->capacity << "). Please join the waitlist.\n";
-            return;
-        }
+        if(ev && ev->registeredCount >= ev->capacity)
+{
+    Participant* newNode =
+        new Participant(id,name,eventName);
+
+    newNode->registered = false;
+    newNode->waitlisted = true;
+
+    // add to linked list
+
+    joinWaitlist(id);
+
+    cout << "Event Full.\n";
+    cout << name
+         << " automatically added to waitlist.\n";
+
+    return;
+}
 
         Participant* newNode = new Participant(id, name, eventName);
         if(!head) head = newNode;
@@ -194,54 +236,117 @@ public:
         }
     }
 
-    void joinWaitlist(int id) {
-        Participant* p = searchByIdInternal(id);
-        if(!p) {
-            cout << "Error: Participant ID not found in system. Register or add record first.\n";
-            return;
-        }
+    void joinWaitlist(int id)
+{
+    Participant* p = searchByIdInternal(id);
 
-        WaitNode* newNode = new WaitNode(id);
-        if(!rear) front = rear = newNode;
-        else { rear->next = newNode; rear = newNode; }
-        
-        cout << "Success: Participant ID P" << id << " added to waitlist for '" << p->eventName << "'.\n";
+    if(!p)
+    {
+        cout << "Error: Participant not found.\n";
+        return;
     }
 
-    void processWaitlist() {
-        if(!front) {
-            cout << "Waitlist Empty.\n";
-            return;
-        }
+   WaitNode* newNode =
+new WaitNode(
+    p->id,
+    p->name,
+    p->eventName
+);
 
-        int processedId = front->participantId;
-        Participant* p = searchByIdInternal(processedId);
-        
-        string evName = p ? p->eventName : "Unknown";
-        EventInfo* ev = findEvent(evName);
-        int cap = ev ? ev->capacity : 0;
-        int reg = ev ? ev->registeredCount : 0;
-        int waitCount = getWaitlistCountForEvent(evName);
-
-        cout << "\n----------------------------------------\n";
-        cout << "PARTICIPANT ID : P" << processedId << "\n";
-        if (p) {
-            cout << "Name           : " << p->name << "\n";
-            cout << "Event Name     : " << p->eventName << "\n";
-        } else {
-            cout << "Name           : [Record Not Found]\n";
-            cout << "Event Name     : N/A\n";
-        }
-        cout << "Capacity       : " << cap << "\n";
-        cout << "Registered     : " << reg << "\n";
-        cout << "Waitlist       : " << (waitCount > 0 ? waitCount - 1 : 0) << "\n";
-        cout << "----------------------------------------\n";
-
-        WaitNode* t = front;
-        front = front->next;
-        delete t;
-        if(!front) rear = NULL;
+    if(!rear)
+    {
+        front = rear = newNode;
     }
+    else
+    {
+        rear->next = newNode;
+        rear = newNode;
+    }
+
+    cout << "Participant "
+         << p->name
+         << " added to waitlist.\n";
+}
+
+   void processWaitlist()
+{
+    if(!front)
+    {
+        cout << "Waitlist Empty.\n";
+        return;
+    }
+
+    cout << "\n";
+    cout << "=============================================================\n";
+    cout << "                 WAITLIST PROCESSING\n";
+    cout << "=============================================================\n";
+
+    cout << left
+         << setw(15) << "ID"
+         << setw(25) << "NAME"
+         << setw(30) << "EVENT"
+         << endl;
+
+    cout << "-------------------------------------------------------------\n";
+
+    cout << left
+         << setw(15) << front->participantId
+         << setw(25) << front->participantName
+         << setw(30) << front->eventName
+         << endl;
+
+    cout << "=============================================================\n";
+
+    WaitNode* temp = front;
+
+    front = front->next;
+
+    delete temp;
+
+    if(front == NULL)
+        rear = NULL;
+}
+
+   void displayWaitlist()
+{
+    if(front == NULL)
+    {
+        cout << "\nWaitlist Empty.\n";
+        return;
+    }
+
+    cout << "\n";
+    cout << "========================================================================\n";
+    cout << "                            WAITLIST QUEUE\n";
+    cout << "========================================================================\n";
+
+    cout << left
+         << setw(10) << "POS"
+         << setw(10) << "ID"
+         << setw(25) << "NAME"
+         << setw(25) << "EVENT"
+         << endl;
+
+    cout << "------------------------------------------------------------------------\n";
+
+    WaitNode* temp = front;
+    int position = 1;
+
+    while(temp != NULL)
+    {
+        cout << left
+             << setw(10) << position
+             << setw(10) << temp->participantId
+             << setw(25) << temp->participantName
+             << setw(25) << temp->eventName
+             << endl;
+
+        temp = temp->next;
+        position++;
+    }
+
+    cout << "========================================================================\n";
+}
 
     void bubbleSortDisplay() {
         if(!head) { cout << "No participants found.\n"; return; }
@@ -288,7 +393,22 @@ int main() {
     sys.registerParticipant(101, "Alice Smith", "AI Seminar");
 
     do {
-        cout << "\n1. Register\n2. Remove\n3. Update\n4. Search\n5. Display Sorted\n6. Join Waitlist\n7. Process Waitlist\n8. Binary Search\n0. Exit\nChoice: ";
+        cout << "\n";
+cout << "=====================================================\n";
+cout << "        CAMPUS EVENT REGISTRATION SYSTEM\n";
+cout << "=====================================================\n";
+cout << "1. Register Participant\n";
+cout << "2. Remove Participant\n";
+cout << "3. Update Participant\n";
+cout << "4. Search Participant\n";
+cout << "5. Display Participants\n";
+cout << "6. Join Waitlist\n";
+cout << "7. Process Waitlist\n";
+cout << "8. Binary Search Participant\n";
+cout << "9. Display Waitlist\n";
+cout << "0. Exit\n";
+cout << "=====================================================\n";
+cout << "Choice: ";
         choice = getValidInt();
         int id; string name;
 
@@ -331,6 +451,9 @@ int main() {
             case 6: cout << "Participant ID to join waitlist: "; sys.joinWaitlist(getValidInt()); break;
             case 7: sys.processWaitlist(); break;
             case 8: sys.binarySearchParticipant(); break;
+            case 9:
+    sys.displayWaitlist();
+    break;
             case 0: cout << "Exiting...\n"; break;
             default: cout << "Invalid choice!\n";
         }
