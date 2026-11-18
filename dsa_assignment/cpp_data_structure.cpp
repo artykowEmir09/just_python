@@ -243,17 +243,4 @@ public:
         if(!front) rear = NULL;
     }
 
-    void bubbleSortDisplay() {
-        if(!head) { cout << "No participants found.\n"; return; }
-        vector<ParticipantView> arr;
-        for(Participant* t = head; t; t = t->next) arr.push_back({t->id, t->name, t->eventName});
-        
-        for(size_t i = 0; i < arr.size() - 1; i++)
-            for(size_t j = 0; j < arr.size() - i - 1; j++)
-                if(arr[j].name > arr[j+1].name) swap(arr[j], arr[j+1]);
-
-        cout << "\n--- Sorted By Name ---\n";
-        for(const auto& p : arr) cout << p.id << " | " << p.name << " | " << p.eventName << endl;
-    }
-
  
