@@ -161,11 +161,4 @@ public:
         cout << "Success: Updated.\n";
     }
 
-    void displaySingle(Participant* p) {
-        EventInfo* ev = findEvent(p->eventName);
-        int cap = ev ? ev->capacity : 0;
-        int reg = ev ? ev->registeredCount : 0;
-        int waitCount = getWaitlistCountForEvent(p->eventName);
-
-        cout << "\n----------------------------------------\n";
  
