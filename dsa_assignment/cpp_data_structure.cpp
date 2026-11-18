@@ -269,17 +269,4 @@ public:
             if(ids[mid] == target) { cout << "Participant Exists.\n"; return; }
             if(ids[mid] < target) low = mid + 1; else high = mid - 1;
         }
-        cout << "Participant Not Found.\n";
-    }
-};
-
-int getValidInt() {
-    int input;
-    while (!(cin >> input)) {
-        cin.clear(); cin.ignore(10000, '\n');
-        cout << "Invalid input! Enter number: ";
-    }
-    return input;
-}
-
  
