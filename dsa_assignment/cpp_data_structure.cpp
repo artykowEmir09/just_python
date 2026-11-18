@@ -140,13 +140,4 @@ public:
             Participant* t = head; head = head->next; delete t;
         } else {
             Participant* temp = head;
-            while(temp->next && temp->next->id != id) temp = temp->next;
-            Participant* t = temp->next; temp->next = temp->next->next; delete t;
-        }
-
-        EventInfo* ev = findEvent(eventName);
-        if(ev && ev->registeredCount > 0) ev->registeredCount--;
-
-        cout << "Success: Participant Removed & Capacity Updated.\n";
-    }
- 
+   
