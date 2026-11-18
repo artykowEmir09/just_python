@@ -293,11 +293,4 @@ int main() {
         int id; string name;
 
         switch(choice) {
-            case 1: {
-                cout << "ID: "; id = getValidInt();
-                cin.ignore(); 
-                cout << "Name: "; getline(cin, name);
-
-                cout << "\n--- Available Events & Capacity ---" << endl;
-                vector<EventInfo>& events = sys.getEvents();
- 
+  
