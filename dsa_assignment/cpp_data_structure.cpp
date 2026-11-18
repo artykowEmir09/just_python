@@ -119,4 +119,222 @@ public:
         Participant* newNode = new Participant(id, name, eventName);
         if(!head) head = newNode;
         else {
-  
+            Participant* temp = head;
+            while(temp->next) temp = temp->next;
+            temp->next = newNode;
+        }
+
+        if(ev) ev->registeredCount++;
+        cout << "Success: Participant Registered for '" << eventName << "'.\n";
+    }
+
+    void removeParticipant(int id) {
+        if(!head) { cout << "No participants found.\n"; return; }
+        
+        Participant* target = searchByIdInternal(id);
+        if(!target) { cout << "Error: Participant Not Found.\n"; return; }
+
+        string eventName = target->eventName;
+
+        if(head->id == id) {
+            Participant* t = head; head = head->next; delete t;
+        } else {
+            Participant* temp = head;
+            while(temp->next && temp->next->id != id) temp = temp->next;
+            Participant* t = temp->next; temp->next = temp->next->next; delete t;
+        }
+
+        EventInfo* ev = findEvent(eventName);
+        if(ev && ev->registeredCount > 0) ev->registeredCount--;
+
+        cout << "Success: Participant Removed & Capacity Updated.\n";
+    }
+
+    void updateParticipant(int id) {
+        Participant* p = searchByIdInternal(id);
+        if(!p) { cout << "Error: Not Found.\n"; return; }
+        
+        string oldEvent = p->eventName;
+        cout << "Current Name: " << p->name << " | Event: " << p->eventName << "\nEnter New Name: ";
+        cin.ignore(); getline(cin, p->name);
+        
+        cout << "Success: Updated.\n";
+    }
+
+    void displaySingle(Participant* p) {
+        EventInfo* ev = findEvent(p->eventName);
+        int cap = ev ? ev->capacity : 0;
+        int reg = ev ? ev->registeredCount : 0;
+        int waitCount = getWaitlistCountForEvent(p->eventName);
+
+        cout << "\n----------------------------------------\n";
+        cout << "PARTICIPANT ID : P" << p->id << "\n";
+        cout << "Name           : " << p->name << "\n";
+        cout << "Event Name     : " << p->eventName << "\n";
+        cout << "Capacity       : " << cap << "\n";
+        cout << "Registered     : " << reg << "\n";
+        cout << "Waitlist       : " << waitCount << "\n";
+        cout << "----------------------------------------\n";
+    }
+
+    void searchParticipant() {
+        int choice;
+        cout << "1. By ID\n2. By Name\nChoice: "; cin >> choice;
+        if(choice == 1) {
+            int id; cout << "ID: "; cin >> id;
+            Participant* p = searchByIdInternal(id);
+            if(p) displaySingle(p); else cout << "Not Found.\n";
+        } else if(choice == 2) {
+            string name; cout << "Name: "; cin.ignore(); getline(cin, name);
+            bool found = false;
+            for(Participant* t = head; t; t = t->next) {
+                if(t->name == name) { displaySingle(t); found = true; }
+            }
+            if(!found) cout << "Not Found.\n";
+        }
+    }
+
+    void joinWaitlist(int id) {
+        Participant* p = searchByIdInternal(id);
+        if(!p) {
+            cout << "Error: Participant ID not found in system. Register or add record first.\n";
+            return;
+        }
+
+        WaitNode* newNode = new WaitNode(id);
+        if(!rear) front = rear = newNode;
+        else { rear->next = newNode; rear = newNode; }
+        
+        cout << "Success: Participant ID P" << id << " added to waitlist for '" << p->eventName << "'.\n";
+    }
+
+    void processWaitlist() {
+        if(!front) {
+            cout << "Waitlist Empty.\n";
+            return;
+        }
+
+        int processedId = front->participantId;
+        Participant* p = searchByIdInternal(processedId);
+        
+        string evName = p ? p->eventName : "Unknown";
+        EventInfo* ev = findEvent(evName);
+        int cap = ev ? ev->capacity : 0;
+        int reg = ev ? ev->registeredCount : 0;
+        int waitCount = getWaitlistCountForEvent(evName);
+
+        cout << "\n----------------------------------------\n";
+        cout << "PARTICIPANT ID : P" << processedId << "\n";
+        if (p) {
+            cout << "Name           : " << p->name << "\n";
+            cout << "Event Name     : " << p->eventName << "\n";
+        } else {
+            cout << "Name           : [Record Not Found]\n";
+            cout << "Event Name     : N/A\n";
+        }
+        cout << "Capacity       : " << cap << "\n";
+        cout << "Registered     : " << reg << "\n";
+        cout << "Waitlist       : " << (waitCount > 0 ? waitCount - 1 : 0) << "\n";
+        cout << "----------------------------------------\n";
+
+        WaitNode* t = front;
+        front = front->next;
+        delete t;
+        if(!front) rear = NULL;
+    }
+
+    void bubbleSortDisplay() {
+        if(!head) { cout << "No participants found.\n"; return; }
+        vector<ParticipantView> arr;
+        for(Participant* t = head; t; t = t->next) arr.push_back({t->id, t->name, t->eventName});
+        
+        for(size_t i = 0; i < arr.size() - 1; i++)
+            for(size_t j = 0; j < arr.size() - i - 1; j++)
+                if(arr[j].name > arr[j+1].name) swap(arr[j], arr[j+1]);
+
+        cout << "\n--- Sorted By Name ---\n";
+        for(const auto& p : arr) cout << p.id << " | " << p.name << " | " << p.eventName << endl;
+    }
+
+    void binarySearchParticipant() {
+        if(!head) { cout << "No participants found.\n"; return; }
+        vector<int> ids;
+        for(Participant* t = head; t; t = t->next) ids.push_back(t->id);
+        mergeSort(ids, 0, ids.size() - 1);
+
+        int target; cout << "Enter ID to search: "; cin >> target;
+        int low = 0, high = ids.size() - 1;
+        while(low <= high) {
+            int mid = low + (high - low) / 2;
+            if(ids[mid] == target) { cout << "Participant Exists.\n"; return; }
+            if(ids[mid] < target) low = mid + 1; else high = mid - 1;
+        }
+        cout << "Participant Not Found.\n";
+    }
+};
+
+int getValidInt() {
+    int input;
+    while (!(cin >> input)) {
+        cin.clear(); cin.ignore(10000, '\n');
+        cout << "Invalid input! Enter number: ";
+    }
+    return input;
+}
+
+int main() {
+    EventSystem sys;
+    int choice;
+    sys.registerParticipant(101, "Alice Smith", "AI Seminar");
+
+    do {
+        cout << "\n1. Register\n2. Remove\n3. Update\n4. Search\n5. Display Sorted\n6. Join Waitlist\n7. Process Waitlist\n8. Binary Search\n0. Exit\nChoice: ";
+        choice = getValidInt();
+        int id; string name;
+
+        switch(choice) {
+            case 1: {
+                cout << "ID: "; id = getValidInt();
+                cin.ignore(); 
+                cout << "Name: "; getline(cin, name);
+
+                cout << "\n--- Available Events & Capacity ---" << endl;
+                vector<EventInfo>& events = sys.getEvents();
+                for (size_t i = 0; i < events.size(); i++) {
+                    int available = events[i].capacity - events[i].registeredCount;
+                    cout << i + 1 << ". " << events[i].name 
+                         << " [Capacity: " << events[i].capacity 
+                         << ", Registered: " << events[i].registeredCount 
+                         << ", Available: " << (available > 0 ? available : 0) << "]\n";
+                }
+                cout << "0. Enter Custom Event Name\n";
+                cout << "Select event option: ";
+                
+                int eventChoice = getValidInt();
+                string eventName = "";
+
+                if (eventChoice > 0 && eventChoice <= (int)events.size()) {
+                    eventName = events[eventChoice - 1].name;
+                } else {
+                    cin.ignore();
+                    cout << "Enter Custom Event Name: ";
+                    getline(cin, eventName);
+                }
+
+                sys.registerParticipant(id, name, eventName);
+                break;
+            }
+            case 2: cout << "ID: "; sys.removeParticipant(getValidInt()); break;
+            case 3: cout << "ID: "; sys.updateParticipant(getValidInt()); break;
+            case 4: sys.searchParticipant(); break;
+            case 5: sys.bubbleSortDisplay(); break;
+            case 6: cout << "Participant ID to join waitlist: "; sys.joinWaitlist(getValidInt()); break;
+            case 7: sys.processWaitlist(); break;
+            case 8: sys.binarySearchParticipant(); break;
+            case 0: cout << "Exiting...\n"; break;
+            default: cout << "Invalid choice!\n";
+        }
+    } while(choice != 0);
+
+    return 0;
+}
