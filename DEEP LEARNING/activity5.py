@@ -8,7 +8,7 @@ from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# Load and normalize the dataset if it is not already loaded
+ 
 digits = load_digits()
 X_img = digits.data / 16.0
 y_img = digits.target
