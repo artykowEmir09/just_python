@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold mb-0">🛡️ Tamper-Resistant Security Audit Logs (SR9)</h4>
+        <span class="badge bg-dark">Live Audit Trail</span>
+    </div>
+    <p class="text-muted small">Tracks security events, failed authentications, brute force attempts, and IDOR probes.</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-striped align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Event Type</th>
+                    <th>Severity</th>
+                    <th>User</th>
+                    <th>IP Address</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr>
+                        <td class="small">{{ log['timestamp'] }}</td>
+                        <td><code>{{ log['event_type'] }}</code></td>
+                        <td>
+                            {% if log['severity'] == 'CRITICAL' %}
+                                <span class="badge bg-danger">CRITICAL</span>
+                            {% elif log['severity'] == 'WARNING' %}
+                                <span class="badge bg-warning text-dark">WARNING</span>
+                            {% else %}
+                                <span class="badge bg-info text-dark">INFO</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ log['username'] or 'ANONYMOUS' }}</td>
+                        <td><small>{{ log['ip_address'] }}</small></td>
+                        <td class="small">{{ log['details'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

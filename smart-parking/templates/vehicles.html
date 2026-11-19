@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card p-4">
+            <h5 class="fw-bold mb-3">Register Vehicle</h5>
+            <form method="POST" action="/vehicles">
+                <div class="mb-3">
+                    <label class="form-label">Plate Number</label>
+                    <input type="text" name="plate_number" class="form-control" maxlength="10" placeholder="e.g. WYY1234" required>
+                    <div class="form-text">Syntactically validated (3-10 chars, A-Z, 0-9).</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Vehicle Type</label>
+                    <select name="vehicle_type" class="form-select">
+                        <option value="Sedan">Sedan</option>
+                        <option value="SUV">SUV</option>
+                        <option value="EV">Electric Vehicle (EV)</option>
+                        <option value="Motorcycle">Motorcycle</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Save Vehicle</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card p-4">
+            <h5 class="fw-bold mb-3">Registered Vehicles</h5>
+            {% if vehicles %}
+                <ul class="list-group">
+                    {% for v in vehicles %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong class="fs-5">{{ v['plate_number'] }}</strong>
+                                <span class="badge bg-light text-dark border ms-2">{{ v['vehicle_type'] }}</span>
+                            </div>
+                            <span class="text-success small">Verified</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-muted">No vehicles registered yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

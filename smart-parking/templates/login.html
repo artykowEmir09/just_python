@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card p-4">
+            <h3 class="fw-bold mb-3 text-center">User Sign In</h3>
+            <p class="text-muted text-center small mb-4">Stage 1: Primary Credential Authentication</p>
+            <form method="POST" action="/login">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" maxlength="30" required autofocus>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" maxlength="64" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Authenticate (Step 1)</button>
+            </form>
+            <div class="text-center mt-3 small">
+                <span>Don't have an account? <a href="/register">Register here</a></span>
+            </div>
+            <div class="alert alert-secondary mt-3 p-2 small text-muted">
+                <strong>Demo Accounts:</strong><br>
+                Admin: <code>admin</code> / <code>Admin@Secure2026!</code><br>
+                User: <code>ybrayym</code> / <code>Secure@Pass2026!</code>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

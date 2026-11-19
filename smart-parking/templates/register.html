@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h3 class="fw-bold mb-3 text-center">Register New Account</h3>
+            <form method="POST" action="/register">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" maxlength="30" placeholder="e.g. johndoe" required>
+                    <div class="form-text">Alphanumeric, 3-30 characters.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" maxlength="100" placeholder="user@domain.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" maxlength="64" required>
+                    <div class="form-text">Min 10 characters, including uppercase, lowercase, number, and special character.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Vehicle Plate Number (Optional)</label>
+                    <input type="text" name="plate_number" class="form-control" maxlength="10" placeholder="e.g. WYY8899">
+                    <div class="form-text">3-10 alphanumeric characters.</div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Continue to MFA Setup</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

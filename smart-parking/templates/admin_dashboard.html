@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2 class="fw-bold text-dark">Administrator Control Center</h2>
+        <p class="text-muted">Facility monitoring, slot management, and security surveillance.</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="/admin/audit-logs" class="btn btn-warning">View Security Audit Trail</a>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card p-3 border-primary">
+            <h6 class="text-muted">Total Capacity</h6>
+            <h3 class="fw-bold">{{ stats['total_slots'] }} Slots</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 border-success">
+            <h6 class="text-muted">Available Slots</h6>
+            <h3 class="fw-bold text-success">{{ stats['avail_slots'] }} Slots</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card p-3 border-info">
+            <h6 class="text-muted">Active Bookings</h6>
+            <h3 class="fw-bold text-info">{{ active_res }}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4">
+    <h5 class="fw-bold mb-3">Recent System Reservations</h5>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Plate</th>
+                    <th>Slot</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in recent_reservations %}
+                    <tr>
+                        <td>#{{ r['id'] }}</td>
+                        <td>{{ r['username'] }}</td>
+                        <td><strong>{{ r['vehicle_plate'] }}</strong></td>
+                        <td>{{ r['slot_number'] }}</td>
+                        <td>{{ r['start_time'] }}</td>
+                        <td>{{ r['end_time'] }}</td>
+                        <td><span class="badge {% if r['status'] == 'confirmed' %}bg-success{% else %}bg-secondary{% endif %}">{{ r['status'] }}</span></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

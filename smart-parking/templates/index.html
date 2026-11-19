@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row align-items-center py-5">
+    <div class="col-lg-7">
+        <h1 class="display-4 fw-bold text-dark mb-3">Enterprise Smart Parking Reservation System</h1>
+        <p class="lead text-muted">A hardened, high-assurance smart parking reservation platform engineered according to the Secure Software Development Life Cycle (SSDLC). Built with zero-trust input validation, RFC 6238 Multi-Factor Authentication, and parameterized transaction isolation.</p>
+        <div class="d-flex gap-3 mt-4">
+            <a href="/login" class="btn btn-primary btn-lg px-4">Sign In</a>
+            <a href="/register" class="btn btn-outline-secondary btn-lg px-4">Create Account</a>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card p-4 shadow-sm border-primary">
+            <h5 class="fw-bold text-primary">🛡️ Implemented Security Controls</h5>
+            <ul class="list-unstyled mt-3 mb-0">
+                <li class="mb-2">✅ <strong>MFA:</strong> Time-Based One-Time Passwords (RFC 6238)</li>
+                <li class="mb-2">✅ <strong>Input Validation:</strong> Syntactical Regex & Semantic Rules</li>
+                <li class="mb-2">✅ <strong>SQL Injection Defense:</strong> 100% Parameterized Statements</li>
+                <li class="mb-2">✅ <strong>Buffer Overflow Defense:</strong> Strict payload bounds (16KB)</li>
+                <li class="mb-2">✅ <strong>Concurrency Control:</strong> Atomic write locks against double-booking</li>
+                <li class="mb-2">✅ <strong>Access Control:</strong> Anti-IDOR object ownership verification</li>
+                <li class="mb-0">✅ <strong>Audit Trails:</strong> Tamper-resistant security activity logging</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

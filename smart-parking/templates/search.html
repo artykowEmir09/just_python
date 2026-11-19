@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4 mb-4">
+    <h4 class="fw-bold mb-3">Search & Reserve Parking Slots</h4>
+    <form method="GET" action="/search" class="row g-3">
+        <div class="col-md-4">
+            <label class="form-label">Floor</label>
+            <select name="floor" class="form-select">
+                <option value="all" {% if selected_floor == 'all' %}selected{% endif %}>All Floors</option>
+                <option value="Ground" {% if selected_floor == 'Ground' %}selected{% endif %}>Ground Floor</option>
+                <option value="Level 1" {% if selected_floor == 'Level 1' %}selected{% endif %}>Level 1</option>
+                <option value="Level 2" {% if selected_floor == 'Level 2' %}selected{% endif %}>Level 2</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Slot Type</label>
+            <select name="type" class="form-select">
+                <option value="all" {% if selected_type == 'all' %}selected{% endif %}>All Types</option>
+                <option value="standard" {% if selected_type == 'standard' %}selected{% endif %}>Standard</option>
+                <option value="ev" {% if selected_type == 'ev' %}selected{% endif %}>EV Charging</option>
+                <option value="handicapped" {% if selected_type == 'handicapped' %}selected{% endif %}>Handicapped</option>
+            </select>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Filter Slots</button>
+        </div>
+    </form>
+</div>
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for s in slots %}
+        <div class="col">
+            <div class="card h-100 p-3 {% if s['status'] == 'available' %}border-success{% else %}border-secondary bg-light{% endif %}">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="fw-bold mb-0">{{ s['slot_number'] }}</h5>
+                    <span class="badge {% if s['status'] == 'available' %}bg-success{% else %}bg-secondary{% endif %}">
+                        {{ s['status'] | upper }}
+                    </span>
+                </div>
+                <p class="text-muted small mb-1">Floor: {{ s['floor'] }}</p>
+                <p class="text-muted small mb-2">Type: <span class="badge bg-light text-dark border">{{ s['slot_type'] | upper }}</span></p>
+                <h6 class="fw-bold text-primary mb-3">RM {{ "%.2f"|format(s['price_per_hour']) }}/hr</h6>
+                {% if s['status'] == 'available' %}
+                    <a href="/reserve/{{ s['id'] }}" class="btn btn-outline-primary btn-sm mt-auto">Book Slot</a>
+                {% else %}
+                    <button class="btn btn-secondary btn-sm mt-auto" disabled>Unavailable</button>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

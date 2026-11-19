@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4">
+            <h4 class="fw-bold mb-1">Confirm Slot Reservation</h4>
+            <p class="text-muted mb-3">Slot: <strong class="text-primary">{{ slot['slot_number'] }}</strong> ({{ slot['floor'] }} - {{ slot['slot_type'] }})</p>
+            <form method="POST" action="/reserve/{{ slot['id'] }}">
+                <div class="mb-3">
+                    <label class="form-label">Vehicle Plate Number</label>
+                    <input type="text" name="plate_number" class="form-control" placeholder="e.g. WYY1234" maxlength="10" required 
+                           value="{% if user_vehicles %}{{ user_vehicles[0]['plate_number'] }}{% endif %}">
+                    <div class="form-text">Must be 3-10 alphanumeric characters.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Start Date & Time</label>
+                    <input type="datetime-local" name="start_time" class="form-control" required>
+                    <div class="form-text">Must be in the future.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">End Date & Time</label>
+                    <input type="datetime-local" name="end_time" class="form-control" required>
+                    <div class="form-text">Must be after start time (max 24 hours).</div>
+                </div>
+                <div class="alert alert-warning p-2 small">
+                    <strong>Concurrency Notice:</strong> Reservations are locked atomically using ACID isolation to prevent double booking.
+                </div>
+                <button type="submit" class="btn btn-success w-100">Confirm & Secure Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

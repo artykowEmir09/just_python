@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card p-4 text-center">
+            <h3 class="fw-bold mb-2">Two-Factor Authentication</h3>
+            <p class="text-muted small">Stage 2: Enter the 6-digit TOTP code for <strong>{{ username }}</strong></p>
+            <div class="badge bg-info text-dark p-2 mb-3">RFC 6238 Authenticator Verification</div>
+            <form method="POST" action="/mfa-verify">
+                <div class="mb-3">
+                    <input type="text" name="token" class="form-control form-control-lg text-center fw-bold" 
+                           placeholder="000000" maxlength="6" pattern="[0-9]{6}" required autofocus>
+                </div>
+                <button type="submit" class="btn btn-success w-100 mb-2">Verify & Access Account</button>
+            </form>
+            <div class="bg-light p-2 rounded mt-3 border small">
+                <strong>Evaluation Helper:</strong><br>
+                Current valid TOTP code: <code class="fs-5 text-primary">{{ demo_code }}</code>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

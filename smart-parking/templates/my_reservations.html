@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card p-4">
+    <h3 class="fw-bold mb-3">My Reservation History</h3>
+    {% if reservations %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Slot</th>
+                        <th>Vehicle Plate</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Status</th>
+                        <th>Booked On</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in reservations %}
+                        <tr>
+                            <td>#{{ r['id'] }}</td>
+                            <td><strong>{{ r['slot_number'] }}</strong> ({{ r['floor'] }})</td>
+                            <td>{{ r['vehicle_plate'] }}</td>
+                            <td>{{ r['start_time'] }}</td>
+                            <td>{{ r['end_time'] }}</td>
+                            <td>
+                                {% if r['status'] == 'confirmed' %}
+                                    <span class="badge bg-success">Confirmed</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Cancelled</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ r['created_at'] }}</td>
+                            <td>
+                                {% if r['status'] == 'confirmed' %}
+                                    <form method="POST" action="/reservation/cancel/{{ r['id'] }}" onsubmit="return confirm('Cancel reservation?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">Cancel</button>
+                                    </form>
+                                {% else %}
+                                    <span class="text-muted small">None</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-muted">No reservations found.</p>
+    {% endif %}
+</div>
+{% endblock %}
