@@ -555,21 +555,4 @@ int main() {
                     getline(cin, eventName);
                 }
 
-                sys.registerParticipant(id, name, eventName);
-                break;
-            }
-            case 2: {
-                cout << "\n[Removal Tool] Enter Participant ID to remove: P"; 
-                sys.removeParticipant(getValidInt()); 
-                break;
-            }
-            case 3: {
-                int id;
-                cout << "\n[Update Tool] Enter Participant ID to update: P"; 
-                id = getValidInt();
-                cin.ignore();
-
-                string newName;
-                cout << "Enter New Name: ";
-                getline(cin, newName);
  
