@@ -408,31 +408,4 @@ public:
         cout << "┌──────┬──────┬──────────────────────────┬──────────────────────────┐\n";
         cout << "│ POS  │ ID   │ NAME                     │ EVENT                    │\n";
         cout << "├──────┼──────┼──────────────────────────┼──────────────────────────┤\n";
-
-        WaitNode* temp = front;
-        int position = 1;
-
-        while(temp != NULL) {
-            cout << "│ " << left << setw(4) << position 
-                 << " │ P" << left << setw(4) << temp->participantId 
-                 << " │ " << left << setw(24) << temp->participantName 
-                 << " │ " << left << setw(24) << temp->eventName << " │\n";
-            temp = temp->next;
-            position++;
-        }
-
-        cout << "└──────┴──────┴──────────────────────────┴──────────────────────────┘\n";
-    }
-
-    void bubbleSortDisplay() {
-        if(!head) { 
-            cout << "\n┌────────────────────────────────────────┐\n";
-            cout << "│      NO PARTICIPANTS FOUND IN SYSTEM   │\n";
-            cout << "└────────────────────────────────────────┘\n"; 
-            return; 
-        }
-
-        vector<ParticipantView> arr;
-        for(Participant* t = head; t; t = t->next) {
-            arr.push_back({t->id, t->name, t->eventName, t->registered, t->waitlisted});
  
