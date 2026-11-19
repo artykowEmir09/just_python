@@ -544,15 +544,4 @@ int main() {
                 cout << " 0. Enter Custom Event Name\n";
                 cout << " Select option ➔ ";
                 
-                int eventChoice = getValidInt();
-                string eventName = "";
-
-                if (eventChoice > 0 && eventChoice <= (int)events.size()) {
-                    eventName = events[eventChoice - 1].name;
-                } else {
-                    cin.ignore();
-                    cout << " Enter Custom Event Name: ";
-                    getline(cin, eventName);
-                }
-
- 
+       
