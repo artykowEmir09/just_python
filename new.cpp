@@ -392,39 +392,4 @@ public:
         } else {
             cout << "\n[!] Notice: Event '" << temp->eventName << "' is still at full capacity. Promotion deferred.\n";
         }
-    }
-
-    void displayWaitlist() {
-        if(front == NULL) {
-            cout << "\n┌────────────────────────────────────────┐\n";
-            cout << "│          WAITLIST QUEUE IS EMPTY       │\n";
-            cout << "└────────────────────────────────────────┘\n";
-            return;
-        }
-
-        cout << "\n";
-        cout << "┌──────┬──────┬──────────────────────────┬──────────────────────────┐\n";
-        cout << "│ POS  │ ID   │ NAME                     │ EVENT                    │\n";
-        cout << "├──────┼──────┼──────────────────────────┼──────────────────────────┤\n";
-
-        WaitNode* temp = front;
-        int position = 1;
-
-        while(temp != NULL) {
-            cout << "│ " << left << setw(4) << position 
-                 << " │ P" << left << setw(4) << temp->participantId 
-                 << " │ " << left << setw(24) << temp->participantName 
-                 << " │ " << left << setw(24) << temp->eventName << " │\n";
-            temp = temp->next;
-            position++;
-        }
-
-        cout << "└──────┴──────┴──────────────────────────┴──────────────────────────┘\n";
-    }
-
-    void bubbleSortDisplay() {
-        if(!head) { 
-            cout << "\n┌────────────────────────────────────────┐\n";
-            cout << "│      NO PARTICIPANTS FOUND IN SYSTEM   │\n";
-            cout << "└────────────────────────────────────────┘\n"; 
  
