@@ -225,42 +225,4 @@ public:
             }
 
             addToWaitlistQueue(id, name, eventName);
-
-            cout << "\n┌────────────────────────────────────────────────────────┐\n";
-            cout << "│ [!] NOTICE: Event '" << eventName << "' is at Full Capacity!      │\n";
-            cout << "│ [✔] " << left << setw(50) << (name + " added to waitlist queue.") << " │\n";
-            cout << "└────────────────────────────────────────────────────────┘\n";
-            return;
-        }
-
-        Participant* newNode = new Participant(id, name, eventName, true, false);
-        if(!head) head = newNode;
-        else {
-            Participant* temp = head;
-            while(temp->next) temp = temp->next;
-            temp->next = newNode;
-        }
-
-        ev->registeredCount++;
-        cout << "\n[✔] Success: [" << name << "] successfully registered for '" << eventName << "'.\n";
-    }
-
-    void removeParticipant(int id) {
-        if(!head) { cout << "\n[ℹ] System Notice: No participants registered currently.\n"; return; }
-        
-        Participant* target = searchByIdInternal(id);
-        if(!target) { cout << "\n[✖] Error: Participant ID [P" << id << "] Not Found.\n"; return; }
-
-        string eventName = target->eventName;
-        bool wasRegistered = target->registered;
-
-        if(head->id == id) {
-            Participant* t = head; head = head->next; delete t;
-        } else {
-            Participant* temp = head;
-            while(temp->next && temp->next->id != id) temp = temp->next;
-            Participant* t = temp->next; temp->next = temp->next->next; delete t;
-        }
-
-        EventInfo* ev = findEvent(eventName);
  
