@@ -122,39 +122,4 @@ private:
             delete t;
             return;
         }
-        WaitNode* temp = front;
-        while(temp->next && temp->next->participantId != id) {
-            temp = temp->next;
-        }
-        if(temp->next) {
-            WaitNode* t = temp->next;
-            temp->next = t->next;
-            if(t == rear) rear = temp;
-            delete t;
-        }
-    }
-
-    // Helper to update name in the waitlist queue if they are waitlisted
-    void updateWaitlistNodeName(int id, string newName) {
-        WaitNode* temp = front;
-        while(temp) {
-            if(temp->participantId == id) {
-                temp->participantName = newName;
-            }
-            temp = temp->next;
-        }
-    }
-
-    // Helper to promote waitlisted user for a specific event when a slot frees up
-    void checkAndPromoteWaitlist(string eventName) {
-        EventInfo* ev = findEvent(eventName);
-        if (!ev || ev->registeredCount >= ev->capacity) return;
-
-        WaitNode* waitTemp = front;
-        WaitNode* prevWait = NULL;
-        while(waitTemp) {
-            if(waitTemp->eventName == eventName) {
-                int promotedId = waitTemp->participantId;
-                Participant* promotedParticipant = searchByIdInternal(promotedId);
-                if(promotedParticipant) {
  
