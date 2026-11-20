@@ -183,46 +183,4 @@ private:
 
 public:
     EventSystem() : head(NULL), front(NULL), rear(NULL) {
-        events = {
-            {"Programming Workshop", 5, 0},
-            {"AI Seminar", 5, 0},
-            {"Cybersecurity Bootcamp", 5, 0},
-            {"Data Science Workshop", 5, 0},
-            {"Final Year Project Exhibition", 5, 0},
-            {"Tech Talk Series", 5, 0},
-            {"Coding Competition", 5, 0},
-            {"Hackathon", 5, 0},
-            {"Blood Donation Drive", 80, 0}
-        };
-    }
-
-    ~EventSystem() {
-        while(head) { Participant* t = head; head = head->next; delete t; }
-        while(front) { WaitNode* t = front; front = front->next; delete t; }
-    }
-
-    vector<EventInfo>& getEvents() { return events; }
-
-    void registerParticipant(int id, string name, string eventName) {
-        if(searchByIdInternal(id)) { 
-            cout << "\n[✖] Error: Participant ID [P" << id << "] already exists in the system.\n"; 
-            return; 
-        }
-        
-        EventInfo* ev = findEvent(eventName);
-        if(!ev) {
-            events.push_back({eventName, 5, 0});
-            ev = findEvent(eventName);
-        }
-
-        if(ev->registeredCount >= ev->capacity) {
-            Participant* newNode = new Participant(id, name, eventName, false, true);
-            if(!head) head = newNode;
-            else {
-                Participant* temp = head;
-                while(temp->next) temp = temp->next;
-                temp->next = newNode;
-            }
-
-            addToWaitlistQueue(id, name, eventName);
  
