@@ -96,30 +96,4 @@ private:
     int getWaitlistCountForEvent(string eventName) {
         int count = 0;
         WaitNode* temp = front;
-        while(temp) {
-            if(temp->eventName == eventName) count++;
-            temp = temp->next;
-        }
-        return count;
-    }
-
-    void addToWaitlistQueue(int id, string name, string eventName) {
-        WaitNode* newNode = new WaitNode(id, name, eventName);
-        if(!rear) {
-            front = rear = newNode;
-        } else {
-            rear->next = newNode;
-            rear = newNode;
-        }
-    }
-
-    void removeFromWaitlistQueue(int id) {
-        if(!front) return;
-        if(front->participantId == id) {
-            WaitNode* t = front;
-            front = front->next;
-            if(!front) rear = NULL;
-            delete t;
-            return;
-        }
  
