@@ -157,30 +157,4 @@ private:
                 int promotedId = waitTemp->participantId;
                 Participant* promotedParticipant = searchByIdInternal(promotedId);
                 if(promotedParticipant) {
-                    promotedParticipant->registered = true;
-                    promotedParticipant->waitlisted = false;
-                    ev->registeredCount++;
-                    cout << "\n┌────────────────────────────────────────────────────────┐\n";
-                    cout << "│ [⚡] AUTO-PROMOTION FROM WAITLIST                      │\n";
-                    cout << "│ " << left << setw(53) << (promotedParticipant->name + " promoted to Registered for '" + eventName + "'") << " │\n";
-                    cout << "└────────────────────────────────────────────────────────┘\n";
-                }
-
-                if(prevWait == NULL) {
-                    front = waitTemp->next;
-                    if(!front) rear = NULL;
-                } else {
-                    prevWait->next = waitTemp->next;
-                    if(waitTemp == rear) rear = prevWait;
-                }
-                delete waitTemp;
-                break;
-            }
-            prevWait = waitTemp;
-            waitTemp = waitTemp->next;
-        }
-    }
-
-public:
-    EventSystem() : head(NULL), front(NULL), rear(NULL) {
  
