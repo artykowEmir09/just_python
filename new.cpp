@@ -512,24 +512,7 @@ int main() {
         cout << "╚═══════════════════════════════════════════════════╝\n";
         cout << " Select Option ➔ ";
         
-        choice = getValidInt();
-
-        switch(choice) {
-            case 1: {
-                int id;
-                string name;
-                cout << "\n--- New Registration --- \n";
-                cout << "Enter Participant ID (numeric): P"; 
-                id = getValidInt();
-                cin.ignore(); 
  
-                sys.updateParticipant(id, newName, newEventName);
-                break;
-            }
-            case 4: 
-                sys.searchParticipant(); 
-                break;
-            case 5: 
                 sys.bubbleSortDisplay(); 
                 break;
             case 6: 
