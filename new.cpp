@@ -385,23 +385,4 @@ public:
             cout << "║ Name  : " << left << setw(49) << temp->participantName << "║\n";
             cout << "║ Event : " << left << setw(49) << temp->eventName << "║\n";
             cout << "╚═══════════════════════════════════════════════════════════╝\n";
-
-            front = front->next;
-            if(!front) rear = NULL;
-            delete temp;
-        } else {
-            cout << "\n[!] Notice: Event '" << temp->eventName << "' is still at full capacity. Promotion deferred.\n";
-        }
-    }
-
-    void displayWaitlist() {
-        if(front == NULL) {
-            cout << "\n┌────────────────────────────────────────┐\n";
-            cout << "│          WAITLIST QUEUE IS EMPTY       │\n";
-            cout << "└────────────────────────────────────────┘\n";
-            return;
-        }
-
-        cout << "\n";
-        cout << "┌──────┬──────┬──────────────────────────┬──────────────────────────┐\n";
  
