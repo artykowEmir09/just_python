@@ -325,23 +325,4 @@ public:
     }
 
     void displaySingle(Participant* p) {
-        EventInfo* ev = findEvent(p->eventName);
-        int cap = ev ? ev->capacity : 0;
-        int reg = ev ? ev->registeredCount : 0;
-        int waitCount = getWaitlistCountForEvent(p->eventName);
-
-        cout << "\n╔════════════════════════════════════════╗\n";
-        cout << "║          PARTICIPANT PROFILE           ║\n";
-        cout << "╠════════════════════════════════════════╣\n";
-        cout << "║ ID           : P" << left << setw(22) << p->id << " ║\n";
-        cout << "║ Name         : " << left << setw(23) << p->name << " ║\n";
-        cout << "║ Event        : " << left << setw(23) << p->eventName << " ║\n";
-        cout << "║ Status       : " << left << setw(23) << (p->registered ? "Registered [✔]" : "Waitlisted [⏳]") << " ║\n";
-        cout << "║ Slot Usage   : " << reg << " / " << left << setw(19) << cap << " ║\n";
-        cout << "║ Event Waitlist: " << left << setw(22) << waitCount << " ║\n";
-        cout << "╚════════════════════════════════════════╝\n";
-    }
-
-    void searchParticipant() {
-        int choice;
  
