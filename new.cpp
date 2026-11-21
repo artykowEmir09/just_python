@@ -202,28 +202,4 @@ public:
     }
 
     vector<EventInfo>& getEvents() { return events; }
-
-    void registerParticipant(int id, string name, string eventName) {
-        if(searchByIdInternal(id)) { 
-            cout << "\n[✖] Error: Participant ID [P" << id << "] already exists in the system.\n"; 
-            return; 
-        }
-        
-        EventInfo* ev = findEvent(eventName);
-        if(!ev) {
-            events.push_back({eventName, 5, 0});
-            ev = findEvent(eventName);
-        }
-
-        if(ev->registeredCount >= ev->capacity) {
-            Participant* newNode = new Participant(id, name, eventName, false, true);
-            if(!head) head = newNode;
-            else {
-                Participant* temp = head;
-                while(temp->next) temp = temp->next;
-                temp->next = newNode;
-            }
-
-            addToWaitlistQueue(id, name, eventName);
-
  
