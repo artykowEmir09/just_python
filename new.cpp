@@ -509,19 +509,7 @@ int main() {
         cout << "║ 7. Display Waitlist Queue                         ║\n";
         cout << "║ 8. Binary Search Participant by ID                ║\n";
         cout << "║ 0. Exit System                                    ║\n";
-        cout << "╚═══════════════════════════════════════════════════╝\n";
-        cout << " Select Option ➔ ";
-        
- 
-                sys.bubbleSortDisplay(); 
-                break;
-            case 6: 
-                sys.processWaitlist(); 
-                break;
-            case 7:
-                sys.displayWaitlist();
-                break;
-            case 8: 
+   
                 sys.binarySearchParticipant(); 
                 break;
             case 0: 
