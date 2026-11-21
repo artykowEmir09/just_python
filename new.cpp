@@ -344,26 +344,4 @@ public:
 
     void searchParticipant() {
         int choice;
-        cout << "\n--- Search Menu ---\n";
-        cout << "1. Search by ID\n2. Search by Name\nChoice: "; 
-        cin >> choice;
-        if(choice == 1) {
-            int id; cout << "Enter ID: "; cin >> id;
-            Participant* p = searchByIdInternal(id);
-            if(p) displaySingle(p); else cout << "\n[✖] Participant ID P" << id << " Not Found.\n";
-        } else if(choice == 2) {
-            string name; cout << "Enter Name: "; cin.ignore(); getline(cin, name);
-            bool found = false;
-            for(Participant* t = head; t; t = t->next) {
-                if(t->name == name) { displaySingle(t); found = true; }
-            }
-            if(!found) cout << "\n[✖] No participants found matching '" << name << "'.\n";
-        } else {
-            cout << "[✖] Invalid choice.\n";
-        }
-    }
-
-    void processWaitlist() {
-        if(!front) {
-            cout << "\n[ℹ] Waitlist Queue is currently empty.\n";
  
