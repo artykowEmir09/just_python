@@ -251,37 +251,4 @@ public:
         Participant* target = searchByIdInternal(id);
         if(!target) { cout << "\n[✖] Error: Participant ID [P" << id << "] Not Found.\n"; return; }
 
-        string eventName = target->eventName;
-        bool wasRegistered = target->registered;
-
-        if(head->id == id) {
-            Participant* t = head; head = head->next; delete t;
-        } else {
-            Participant* temp = head;
-            while(temp->next && temp->next->id != id) temp = temp->next;
-            Participant* t = temp->next; temp->next = temp->next->next; delete t;
-        }
-
-        EventInfo* ev = findEvent(eventName);
-
-        if(wasRegistered) {
-            if(ev && ev->registeredCount > 0) ev->registeredCount--;
-            checkAndPromoteWaitlist(eventName);
-        } else {
-            removeFromWaitlistQueue(id);
-        }
-
-        cout << "[✔] Success: Participant P" << id << " removed and capacity updated.\n";
-    }
-
-    void updateParticipant(int id, string newName, string newEventName) {
-        Participant* p = searchByIdInternal(id);
-        if(!p) { 
-            cout << "\n[✖] Error: Participant P" << id << " Not Found.\n"; 
-            return; 
-        }
-        
-        string oldEventName = p->eventName;
-        bool wasRegistered = p->registered;
-
  
