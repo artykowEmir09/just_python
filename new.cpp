@@ -480,45 +480,4 @@ public:
 
 int getValidInt() {
     int input;
-    while (!(cin >> input)) {
-        cin.clear(); 
-        cin.ignore(10000, '\n');
-        cout << "[✖] Invalid input! Please enter a valid number: ";
-    }
-    return input;
-}
-
-int main() {
-    EventSystem sys;
-    int choice;
-
-    // Default entry
-    sys.registerParticipant(101, "Alice Smith", "AI Seminar");
-
-    do {
-        cout << "\n";
-        cout << "╔═══════════════════════════════════════════════════╗\n";
-        cout << "║         CAMPUS EVENT REGISTRATION SYSTEM          ║\n";
-        cout << "╠═══════════════════════════════════════════════════╣\n";
-        cout << "║ 1. Register Participant                           ║\n";
-        cout << "║ 2. Remove Participant & Update Capacity           ║\n";
-        cout << "║ 3. Update Participant Name & Event                ║\n";
-        cout << "║ 4. Search Participant (ID or Name)                ║\n";
-        cout << "║ 5. Display All Participants (Sorted Table)        ║\n";
-        cout << "║ 6. Manually Process Waitlist Queue                ║\n";
-        cout << "║ 7. Display Waitlist Queue                         ║\n";
-        cout << "║ 8. Binary Search Participant by ID                ║\n";
-        cout << "║ 0. Exit System                                    ║\n";
-   
-                sys.binarySearchParticipant(); 
-                break;
-            case 0: 
-                cout << "\n[ℹ] Exiting program. Have a great day!\n\n"; 
-                break;
-            default: 
-                cout << "\n[✖] Invalid choice! Please select an option between 0 and 8.\n";
-        }
-    } while(choice != 0);
-
-    return 0;
-}
+ 
