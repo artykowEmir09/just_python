@@ -284,22 +284,4 @@ public:
         string oldEventName = p->eventName;
         bool wasRegistered = p->registered;
 
-        // Update Name in main record and in waitlist queue if they are waitlisted
-        p->name = newName;
-        updateWaitlistNodeName(id, newName);
-
-        // If event is changing, adjust counts and statuses
-        if (oldEventName != newEventName) {
-            // 1. Handle old event adjustment
-            if (wasRegistered) {
-                EventInfo* oldEv = findEvent(oldEventName);
-                if (oldEv && oldEv->registeredCount > 0) oldEv->registeredCount--;
-                checkAndPromoteWaitlist(oldEventName);
-            } else {
-                removeFromWaitlistQueue(id);
-            }
-
-            // 2. Handle new event placement
-            EventInfo* newEv = findEvent(newEventName);
-            if (!newEv) {
  
