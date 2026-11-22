@@ -191,22 +191,4 @@ public:
             {"Final Year Project Exhibition", 5, 0},
             {"Tech Talk Series", 5, 0},
             {"Coding Competition", 5, 0},
-            {"Hackathon", 5, 0},
-            {"Blood Donation Drive", 80, 0}
-        };
-    }
-
-    ~EventSystem() {
-        while(head) { Participant* t = head; head = head->next; delete t; }
-        while(front) { WaitNode* t = front; front = front->next; delete t; }
-    }
-
-    vector<EventInfo>& getEvents() { return events; }
-
-    void registerParticipant(int id, string name, string eventName) {
-        if(searchByIdInternal(id)) { 
-            cout << "\n[✖] Error: Participant ID [P" << id << "] already exists in the system.\n"; 
-            return; 
-        }
-        
  
