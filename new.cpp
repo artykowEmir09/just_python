@@ -209,37 +209,4 @@ public:
             return; 
         }
         
-        EventInfo* ev = findEvent(eventName);
-        if(!ev) {
-            events.push_back({eventName, 5, 0});
-            ev = findEvent(eventName);
-        }
-
-        if(ev->registeredCount >= ev->capacity) {
-            Participant* newNode = new Participant(id, name, eventName, false, true);
-            if(!head) head = newNode;
-            else {
-                Participant* temp = head;
-                while(temp->next) temp = temp->next;
-                temp->next = newNode;
-            }
-
-            addToWaitlistQueue(id, name, eventName);
-
-            cout << "\n┌────────────────────────────────────────────────────────┐\n";
-            cout << "│ [!] NOTICE: Event '" << eventName << "' is at Full Capacity!      │\n";
-            cout << "│ [✔] " << left << setw(50) << (name + " added to waitlist queue.") << " │\n";
-            cout << "└────────────────────────────────────────────────────────┘\n";
-            return;
-        }
-
-        Participant* newNode = new Participant(id, name, eventName, true, false);
-        if(!head) head = newNode;
-        else {
-            Participant* temp = head;
-            while(temp->next) temp = temp->next;
-            temp->next = newNode;
-        }
-
-        ev->registeredCount++;
  
