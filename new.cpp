@@ -273,30 +273,4 @@ public:
 
         cout << "[✔] Success: Participant P" << id << " removed and capacity updated.\n";
     }
-
-    void updateParticipant(int id, string newName, string newEventName) {
-        Participant* p = searchByIdInternal(id);
-        if(!p) { 
-            cout << "\n[✖] Error: Participant P" << id << " Not Found.\n"; 
-            return; 
-        }
-        
-        string oldEventName = p->eventName;
-        bool wasRegistered = p->registered;
-
-        // Update Name in main record and in waitlist queue if they are waitlisted
-        p->name = newName;
-        updateWaitlistNodeName(id, newName);
-
-        // If event is changing, adjust counts and statuses
-        if (oldEventName != newEventName) {
-            // 1. Handle old event adjustment
-            if (wasRegistered) {
-                EventInfo* oldEv = findEvent(oldEventName);
-                if (oldEv && oldEv->registeredCount > 0) oldEv->registeredCount--;
-                checkAndPromoteWaitlist(oldEventName);
-            } else {
-                removeFromWaitlistQueue(id);
-            }
-
  
