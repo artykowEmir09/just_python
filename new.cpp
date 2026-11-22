@@ -366,32 +366,4 @@ public:
     void processWaitlist() {
         if(!front) {
             cout << "\n[ℹ] Waitlist Queue is currently empty.\n";
-            return;
-        }
-
-        WaitNode* temp = front;
-        Participant* p = searchByIdInternal(temp->participantId);
-        EventInfo* ev = findEvent(temp->eventName);
-
-        if(p && ev && ev->registeredCount < ev->capacity) {
-            p->registered = true;
-            p->waitlisted = false;
-            ev->registeredCount++;
-
-            cout << "\n╔═══════════════════════════════════════════════════════════╗\n";
-            cout << "║          MANUALLY PROCESSED FROM WAITLIST QUEUE           ║\n";
-            cout << "╠═══════════════════════════════════════════════════════════╣\n";
-            cout << "║ ID    : P" << left << setw(48) << temp->participantId << "║\n";
-            cout << "║ Name  : " << left << setw(49) << temp->participantName << "║\n";
-            cout << "║ Event : " << left << setw(49) << temp->eventName << "║\n";
-            cout << "╚═══════════════════════════════════════════════════════════╝\n";
-
-            front = front->next;
-            if(!front) rear = NULL;
-            delete temp;
-        } else {
-            cout << "\n[!] Notice: Event '" << temp->eventName << "' is still at full capacity. Promotion deferred.\n";
-        }
-    }
-
  
