@@ -163,32 +163,4 @@ private:
                     cout << "\n┌────────────────────────────────────────────────────────┐\n";
                     cout << "│ [⚡] AUTO-PROMOTION FROM WAITLIST                      │\n";
                     cout << "│ " << left << setw(53) << (promotedParticipant->name + " promoted to Registered for '" + eventName + "'") << " │\n";
-                    cout << "└────────────────────────────────────────────────────────┘\n";
-                }
-
-                if(prevWait == NULL) {
-                    front = waitTemp->next;
-                    if(!front) rear = NULL;
-                } else {
-                    prevWait->next = waitTemp->next;
-                    if(waitTemp == rear) rear = prevWait;
-                }
-                delete waitTemp;
-                break;
-            }
-            prevWait = waitTemp;
-            waitTemp = waitTemp->next;
-        }
-    }
-
-public:
-    EventSystem() : head(NULL), front(NULL), rear(NULL) {
-        events = {
-            {"Programming Workshop", 5, 0},
-            {"AI Seminar", 5, 0},
-            {"Cybersecurity Bootcamp", 5, 0},
-            {"Data Science Workshop", 5, 0},
-            {"Final Year Project Exhibition", 5, 0},
-            {"Tech Talk Series", 5, 0},
-            {"Coding Competition", 5, 0},
  
