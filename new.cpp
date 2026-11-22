@@ -242,35 +242,4 @@ public:
         }
 
         ev->registeredCount++;
-        cout << "\n[✔] Success: [" << name << "] successfully registered for '" << eventName << "'.\n";
-    }
-
-    void removeParticipant(int id) {
-        if(!head) { cout << "\n[ℹ] System Notice: No participants registered currently.\n"; return; }
-        
-        Participant* target = searchByIdInternal(id);
-        if(!target) { cout << "\n[✖] Error: Participant ID [P" << id << "] Not Found.\n"; return; }
-
-        string eventName = target->eventName;
-        bool wasRegistered = target->registered;
-
-        if(head->id == id) {
-            Participant* t = head; head = head->next; delete t;
-        } else {
-            Participant* temp = head;
-            while(temp->next && temp->next->id != id) temp = temp->next;
-            Participant* t = temp->next; temp->next = temp->next->next; delete t;
-        }
-
-        EventInfo* ev = findEvent(eventName);
-
-        if(wasRegistered) {
-            if(ev && ev->registeredCount > 0) ev->registeredCount--;
-            checkAndPromoteWaitlist(eventName);
-        } else {
-            removeFromWaitlistQueue(id);
-        }
-
-        cout << "[✔] Success: Participant P" << id << " removed and capacity updated.\n";
-    }
  
