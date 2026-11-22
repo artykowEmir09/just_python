@@ -474,25 +474,4 @@ public:
             }
             if(ids[mid] < target) low = mid + 1; else high = mid - 1;
         }
-        cout << "[✖] Result: Participant [P" << target << "] Not Found.\n";
-    }
-};
-
-int getValidInt() {
-    int input;
-    while (!(cin >> input)) {
-        cin.clear(); 
-        cin.ignore(10000, '\n');
-        cout << "[✖] Invalid input! Please enter a valid number: ";
-    }
-    return input;
-}
-
-int main() {
-    EventSystem sys;
-    int choice;
-
-    // Default entry
-    sys.registerParticipant(101, "Alice Smith", "AI Seminar");
-
  
