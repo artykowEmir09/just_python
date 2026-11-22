@@ -299,33 +299,4 @@ public:
                 removeFromWaitlistQueue(id);
             }
 
-            // 2. Handle new event placement
-            EventInfo* newEv = findEvent(newEventName);
-            if (!newEv) {
-                events.push_back({newEventName, 5, 0});
-                newEv = findEvent(newEventName);
-            }
-
-            p->eventName = newEventName;
-
-            if (newEv->registeredCount >= newEv->capacity) {
-                p->registered = false;
-                p->waitlisted = true;
-                addToWaitlistQueue(id, newName, newEventName);
-                cout << "\n[!] Notice: New event '" << newEventName << "' is full. Participant moved to waitlist.\n";
-            } else {
-                p->registered = true;
-                p->waitlisted = false;
-                newEv->registeredCount++;
-                cout << "\n[✔] Success: Participant successfully transferred and registered for '" << newEventName << "'.\n";
-            }
-        } else {
-            cout << "\n[✔] Success: Participant details updated successfully.\n";
-        }
-    }
-
-    void displaySingle(Participant* p) {
-        EventInfo* ev = findEvent(p->eventName);
-        int cap = ev ? ev->capacity : 0;
-        int reg = ev ? ev->registeredCount : 0;
  
