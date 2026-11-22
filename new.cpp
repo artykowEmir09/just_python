@@ -584,40 +584,4 @@ int main() {
 
                 int eventChoice = getValidInt();
                 string newEventName = "";
-
-                if (eventChoice > 0 && eventChoice <= (int)events.size()) {
-                    newEventName = events[eventChoice - 1].name;
-                } else {
-                    cin.ignore();
-                    cout << " Enter Custom Event Name: ";
-                    getline(cin, newEventName);
-                }
-
-                sys.updateParticipant(id, newName, newEventName);
-                break;
-            }
-            case 4: 
-                sys.searchParticipant(); 
-                break;
-            case 5: 
-                sys.bubbleSortDisplay(); 
-                break;
-            case 6: 
-                sys.processWaitlist(); 
-                break;
-            case 7:
-                sys.displayWaitlist();
-                break;
-            case 8: 
-                sys.binarySearchParticipant(); 
-                break;
-            case 0: 
-                cout << "\n[ℹ] Exiting program. Have a great day!\n\n"; 
-                break;
-            default: 
-                cout << "\n[✖] Invalid choice! Please select an option between 0 and 8.\n";
-        }
-    } while(choice != 0);
-
-    return 0;
-}
+ 
