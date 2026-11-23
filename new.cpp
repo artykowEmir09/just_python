@@ -12,4 +12,12 @@ struct EventInfo {
     int registeredCount;
 };
 
- 
+struct Participant {
+    int id;
+    string name;
+    string eventName;
+    bool registered;
+    bool waitlisted;
+    Participant* next;
+
+  
