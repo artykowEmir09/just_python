@@ -66,11 +66,4 @@ private:
         return NULL;
     }
 
-    EventInfo* findEvent(string eventName) {
-        for(auto& ev : events) {
-            if(ev.name == eventName) return &ev;
-        }
-        return NULL;
-    }
-
  
