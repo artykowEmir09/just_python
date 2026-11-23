@@ -125,13 +125,4 @@ private:
         WaitNode* temp = front;
         while(temp->next && temp->next->participantId != id) {
             temp = temp->next;
-        }
-        if(temp->next) {
-            WaitNode* t = temp->next;
-            temp->next = t->next;
-            if(t == rear) rear = temp;
-            delete t;
-        }
-    }
-
  
