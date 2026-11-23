@@ -154,13 +154,5 @@ private:
         WaitNode* prevWait = NULL;
         while(waitTemp) {
             if(waitTemp->eventName == eventName) {
-                int promotedId = waitTemp->participantId;
-                Participant* promotedParticipant = searchByIdInternal(promotedId);
-                if(promotedParticipant) {
-                    promotedParticipant->registered = true;
-                    promotedParticipant->waitlisted = false;
-                    ev->registeredCount++;
-                    cout << "\n┌────────────────────────────────────────────────────────┐\n";
-                    cout << "│ [⚡] AUTO-PROMOTION FROM WAITLIST                      │\n";
-                    cout << "│ " << left << setw(53) << (promotedParticipant->name + " promoted to Registered for '" + eventName + "'") << " │\n";
+                int promotedId = wa  (promotedParticipant->name + " promoted to Registered for '" + eventName + "'") << " │\n";
  
