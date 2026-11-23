@@ -150,9 +150,4 @@ private:
         EventInfo* ev = findEvent(eventName);
         if (!ev || ev->registeredCount >= ev->capacity) return;
 
-        WaitNode* waitTemp = front;
-        WaitNode* prevWait = NULL;
-        while(waitTemp) {
-            if(waitTemp->eventName == eventName) {
-                int promotedId = wa  (promotedParticipant->name + " promoted to Registered for '" + eventName + "'") << " │\n";
- 
+  
