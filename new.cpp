@@ -28,12 +28,4 @@ struct Participant {
         waitlisted = wait;
         next = NULL;
     }
-};
-
-struct WaitNode {
-    int participantId;
-    string participantName;
-    string eventName;
-    WaitNode* next;
-
- 
+} 
