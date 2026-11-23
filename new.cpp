@@ -119,10 +119,4 @@ private:
             WaitNode* t = front;
             front = front->next;
             if(!front) rear = NULL;
-            delete t;
-            return;
-        }
-        WaitNode* temp = front;
-        while(temp->next && temp->next->participantId != id) {
-            temp = temp->next;
  
