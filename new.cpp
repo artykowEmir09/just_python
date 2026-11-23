@@ -145,9 +145,4 @@ private:
         }
     }
 
-    // Helper to promote waitlisted user for a specific event when a slot frees up
-    void checkAndPromoteWaitlist(string eventName) {
-        EventInfo* ev = findEvent(eventName);
-        if (!ev || ev->registeredCount >= ev->capacity) return;
-
-  
+   
