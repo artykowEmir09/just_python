@@ -42,11 +42,4 @@ struct WaitNode {
         eventName = event;
         next = NULL;
     }
-};
-
-struct ParticipantView {
-    int id;
-    string name, eventName;
-    bool registered;
-    bool waitlisted;
  
