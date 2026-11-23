@@ -103,14 +103,4 @@ private:
         return count;
     }
 
-    void addToWaitlistQueue(int id, string name, string eventName) {
-        WaitNode* newNode = new WaitNode(id, name, eventName);
-        if(!rear) {
-            front = rear = newNode;
-        } else {
-            rear->next = newNode;
-            rear = newNode;
-        }
-    }
-
  
