@@ -20,12 +20,4 @@ struct Participant {
     bool waitlisted;
     Participant* next;
 
-    Participant(int i, string n, string e, bool reg = true, bool wait = false) {
-        id = i;
-        name = n;
-        eventName = e;
-        registered = reg;
-        waitlisted = wait;
-        next = NULL;
-    }
-} 
+  
