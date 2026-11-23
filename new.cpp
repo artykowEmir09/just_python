@@ -96,11 +96,4 @@ private:
     int getWaitlistCountForEvent(string eventName) {
         int count = 0;
         WaitNode* temp = front;
-        while(temp) {
-            if(temp->eventName == eventName) count++;
-            temp = temp->next;
-        }
-        return count;
-    }
-
  
