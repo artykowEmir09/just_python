@@ -137,12 +137,4 @@ private:
     // Helper to update name in the waitlist queue if they are waitlisted
     void updateWaitlistNodeName(int id, string newName) {
         WaitNode* temp = front;
-        while(temp) {
-            if(temp->participantId == id) {
-                temp->participantName = newName;
-            }
-            temp = temp->next;
-        }
-    }
-
-   
+ s
