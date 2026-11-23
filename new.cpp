@@ -56,14 +56,4 @@ private:
     Participant* head;
     WaitNode *front, *rear;
     vector<EventInfo> events;
-
-    Participant* searchByIdInternal(int id) {
-        Participant* temp = head;
-        while(temp) {
-            if(temp->id == id) return temp;
-            temp = temp->next;
-        }
-        return NULL;
-    }
-
  
