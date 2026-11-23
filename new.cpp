@@ -134,7 +134,4 @@ private:
         }
     }
 
-    // Helper to update name in the waitlist queue if they are waitlisted
-    void updateWaitlistNodeName(int id, string newName) {
-        WaitNode* temp = front;
- s
+ 
