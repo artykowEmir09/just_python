@@ -49,11 +49,4 @@ struct ParticipantView {
     string name, eventName;
     bool registered;
     bool waitlisted;
-};
-
-class EventSystem {
-private:
-    Participant* head;
-    WaitNode *front, *rear;
-    vector<EventInfo> events;
  
