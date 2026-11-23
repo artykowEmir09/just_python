@@ -113,10 +113,4 @@ private:
         }
     }
 
-    void removeFromWaitlistQueue(int id) {
-        if(!front) return;
-        if(front->participantId == id) {
-            WaitNode* t = front;
-            front = front->next;
-            if(!front) rear = NULL;
  
