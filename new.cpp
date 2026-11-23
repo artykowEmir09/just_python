@@ -36,10 +36,4 @@ struct WaitNode {
     string eventName;
     WaitNode* next;
 
-    WaitNode(int id, string name, string event) {
-        participantId = id;
-        participantName = name;
-        eventName = event;
-        next = NULL;
-    }
  
