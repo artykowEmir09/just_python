@@ -16,5 +16,4 @@ struct Participant {
     int id;
     string name;
     string eventName;
-    bool registered;
-   
+ 
