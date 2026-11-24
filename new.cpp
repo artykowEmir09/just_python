@@ -17,5 +17,4 @@ struct Participant {
     string name;
     string eventName;
     bool registered;
-    bool waitlisted;
- 
+   
