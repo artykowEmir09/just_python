@@ -414,37 +414,4 @@ public:
 
         while(temp != NULL) {
             cout << "│ " << left << setw(4) << position 
-                 << " │ P" << left << setw(4) << temp->participantId 
-                 << " │ " << left << setw(24) << temp->participantName 
-                 << " │ " << left << setw(24) << temp->eventName << " │\n";
-            temp = temp->next;
-            position++;
-        }
-
-        cout << "└──────┴──────┴──────────────────────────┴──────────────────────────┘\n";
-    }
-
-    void bubbleSortDisplay() {
-        if(!head) { 
-            cout << "\n┌────────────────────────────────────────┐\n";
-            cout << "│      NO PARTICIPANTS FOUND IN SYSTEM   │\n";
-            cout << "└────────────────────────────────────────┘\n"; 
-            return; 
-        }
-
-        vector<ParticipantView> arr;
-        for(Participant* t = head; t; t = t->next) {
-            arr.push_back({t->id, t->name, t->eventName, t->registered, t->waitlisted});
-        }
-        
-        for(size_t i = 0; i < arr.size() - 1; i++)
-            for(size_t j = 0; j < arr.size() - i - 1; j++)
-                if(arr[j].name > arr[j+1].name) swap(arr[j], arr[j+1]);
-
-        cout << "\n";
-        cout << "=================================================================================\n";
-        cout << "                         ALL REGISTERED PARTICIPANTS                             \n";
-        cout << "=================================================================================\n";
-        cout << left << setw(10) << "ID" << setw(26) << "Name" << setw(28) << "Event" << setw(18) << "Status" << endl;
-        cout << "---------------------------------------------------------------------------------\n";
  
