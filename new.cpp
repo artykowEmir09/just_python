@@ -14,5 +14,4 @@ struct EventInfo {
 
 struct Participant {
     int id;
-    string name;
  
