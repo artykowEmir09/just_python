@@ -18,6 +18,4 @@ struct Participant {
     string eventName;
     bool registered;
     bool waitlisted;
-    Participant* next;
-
-  
+ 
