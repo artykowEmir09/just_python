@@ -455,32 +455,4 @@ public:
                  << setw(18) << status << endl;
         }
         cout << "=================================================================================\n";
-    }
-
-    void binarySearchParticipant() {
-        if(!head) { cout << "\n[ℹ] No participants found in system.\n"; return; }
-        vector<int> ids;
-        for(Participant* t = head; t; t = t->next) ids.push_back(t->id);
-        mergeSort(ids, 0, ids.size() - 1);
-
-        int target; 
-        cout << "\n[Binary Search] Enter Participant ID to check: P"; 
-        cin >> target;
-        
-        int low = 0, high = ids.size() - 1;
-        while(low <= high) {
-            int mid = low + (high - low) / 2;
-            if(ids[mid] == target) { 
-                cout << "[✔] Result: Participant [P" << target << "] exists in the system registry.\n"; 
-                return; 
-            }
-            if(ids[mid] < target) low = mid + 1; else high = mid - 1;
-        }
-        cout << "[✖] Result: Participant [P" << target << "] Not Found.\n";
-    }
-};
-
-int getValidInt() {
-    int input;
-    while (!(cin >> input)) {
  
