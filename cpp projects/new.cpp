@@ -574,36 +574,4 @@ int main() {
                 getline(cin, newName);
 
                 cout << "\n┌────────────────────────────────────────┐\n";
-                cout << "│        SELECT NEW EVENT TARGET         │\n";
-                cout << "└────────────────────────────────────────┘\n";
-                vector<EventInfo>& events = sys.getEvents();
-                for (size_t i = 0; i < events.size(); i++) {
-                    int available = events[i].capacity - events[i].registeredCount;
-                    cout << " " << i + 1 << ". " << events[i].name 
-                         << " \n    [Capacity: " << events[i].capacity 
-                         << " | Registered: " << events[i].registeredCount 
-                         << " | Available: " << (available > 0 ? available : 0) << "]\n";
-                }
-                cout << " 0. Enter Custom Event Name\n";
-                cout << " Select option ➔ ";
-
-                int eventChoice = getValidInt();
-                string newEventName = "";
-
-                if (eventChoice > 0 && eventChoice <= (int)events.size()) {
-                    newEventName = events[eventChoice - 1].name;
-                } else {
-                    cin.ignore();
-                    cout << " Enter Custom Event Name: ";
-                    getline(cin, newEventName);
-                }
-
-                sys.updateParticipant(id, newName, newEventName);
-                break;
-            }
-            case 4: 
-                sys.searchParticipant(); 
-                break;
-            case 5: 
-                sys.bubbleSortDisplay(); 
  
