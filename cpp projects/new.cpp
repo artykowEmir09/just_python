@@ -609,4 +609,20 @@ int main() {
                 break;
             case 6: 
                 sys.processWaitlist(); 
-  
+                break;
+            case 7:
+                sys.displayWaitlist();
+                break;
+            case 8: 
+                sys.binarySearchParticipant(); 
+                break;
+            case 0: 
+                cout << "\n[ℹ] Exiting program. Have a great day!\n\n"; 
+                break;
+            default: 
+                cout << "\n[✖] Invalid choice! Please select an option between 0 and 8.\n";
+        }
+    } while(choice != 0);
+
+    return 0;
+}
