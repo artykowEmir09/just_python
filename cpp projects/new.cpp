@@ -483,29 +483,4 @@ public:
 int getValidInt() {
     int input;
     while (!(cin >> input)) {
-        cin.clear(); 
-        cin.ignore(10000, '\n');
-        cout << "[✖] Invalid input! Please enter a valid number: ";
-    }
-    return input;
-}
-
-int main() {
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-
-    EventSystem sys;
-    int choice;
-
-    // Default entry
-    sys.registerParticipant(101, "Alice Smith", "AI Seminar");
-
-    do {
-        cout << "\n";
-        cout << "╔═══════════════════════════════════════════════════╗\n";
-        cout << "║         CAMPUS EVENT REGISTRATION SYSTEM          ║\n";
-        cout << "╠═══════════════════════════════════════════════════╣\n";
-        cout << "║ 1. Register Participant                           ║\n";
-        cout << "║ 2. Remove Participant & Update Capacity           ║\n";
-        cout << "║ 3. Update Participant Name & Event                ║\n";
  
