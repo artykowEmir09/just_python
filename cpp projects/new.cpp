@@ -508,19 +508,4 @@ int main() {
         cout << "║ 1. Register Participant                           ║\n";
         cout << "║ 2. Remove Participant & Update Capacity           ║\n";
         cout << "║ 3. Update Participant Name & Event                ║\n";
-        cout << "║ 4. Search Participant (ID or Name)                ║\n";
-        cout << "║ 5. Display All Participants (Sorted Table)        ║\n";
-        cout << "║ 6. Manually Process Waitlist Queue                ║\n";
-        cout << "║ 7. Display Waitlist Queue                         ║\n";
-        cout << "║ 8. Binary Search Participant by ID                ║\n";
-        cout << "║ 0. Exit System                                    ║\n";
-        cout << "╚═══════════════════════════════════════════════════╝\n";
-        cout << " Select Option ➔ ";
-        
-        choice = getValidInt();
-
-        switch(choice) {
-            case 1: {
-                int id;
-                string name;
  
