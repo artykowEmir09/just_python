@@ -1,28 +1,14 @@
 #include <iostream>
 #include <stack>
 using namespace std;
-int main()
-{
-stack<char> mystack;
 
-    mystack.push('C');
-    mystack.push('A');
-
-    cout << "Top element: " << mystack.top() <<endl;
-
-    cout << "Is empty? "
-              << (mystack.empty() ? "Yes" : "No")
-              << endl;
-
-    mystack.pop();
-
-    cout << "After pop, top element: "
-              << mystack.top() << endl;
-
-    mystack.emplace('D');
-
-    cout << "After emplace, top element: "
-              << mystack.top() << endl;
-
+int main(){
+    stack<int> s;
+s.push(10);
+s.push(20);
+s.push(30);
+cout << s.top() << " ";
+s.pop();
+cout << s.top();
     return 0;
 }
