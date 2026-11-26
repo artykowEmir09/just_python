@@ -550,4 +550,79 @@ int main() {
                 if (eventChoice > 0 && eventChoice <= (int)events.size()) {
                     eventName = events[eventChoice - 1].name;
                 } else {
- 
+                    cin.ignore();
+                    cout << " Enter Custom Event Name: ";
+                    getline(cin, eventName);
+                }
+
+                sys.registerParticipant(id, name, eventName);
+                break;
+            }
+            case 2: {
+                cout << "\n[Removal Tool] Enter Participant ID to remove: P"; 
+                sys.removeParticipant(getValidInt()); 
+                break;
+            }
+            case 3: {
+                int id;
+                cout << "\n[Update Tool] Enter Participant ID to update: P"; 
+                id = getValidInt();
+                cin.ignore();
+
+                string newName;
+                cout << "Enter New Name: ";
+                getline(cin, newName);
+
+                cout << "\n┌────────────────────────────────────────┐\n";
+                cout << "│        SELECT NEW EVENT TARGET         │\n";
+                cout << "└────────────────────────────────────────┘\n";
+                vector<EventInfo>& events = sys.getEvents();
+                for (size_t i = 0; i < events.size(); i++) {
+                    int available = events[i].capacity - events[i].registeredCount;
+                    cout << " " << i + 1 << ". " << events[i].name 
+                         << " \n    [Capacity: " << events[i].capacity 
+                         << " | Registered: " << events[i].registeredCount 
+                         << " | Available: " << (available > 0 ? available : 0) << "]\n";
+                }
+                cout << " 0. Enter Custom Event Name\n";
+                cout << " Select option ➔ ";
+
+                int eventChoice = getValidInt();
+                string newEventName = "";
+
+                if (eventChoice > 0 && eventChoice <= (int)events.size()) {
+                    newEventName = events[eventChoice - 1].name;
+                } else {
+                    cin.ignore();
+                    cout << " Enter Custom Event Name: ";
+                    getline(cin, newEventName);
+                }
+
+                sys.updateParticipant(id, newName, newEventName);
+                break;
+            }
+            case 4: 
+                sys.searchParticipant(); 
+                break;
+            case 5: 
+                sys.bubbleSortDisplay(); 
+                break;
+            case 6: 
+                sys.processWaitlist(); 
+                break;
+            case 7:
+                sys.displayWaitlist();
+                break;
+            case 8: 
+                sys.binarySearchParticipant(); 
+                break;
+            case 0: 
+                cout << "\n[ℹ] Exiting program. Have a great day!\n\n"; 
+                break;
+            default: 
+                cout << "\n[✖] Invalid choice! Please select an option between 0 and 8.\n";
+        }
+    } while(choice != 0);
+
+    return 0;
+}
