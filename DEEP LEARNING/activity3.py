@@ -136,17 +136,7 @@ plt.contour(
 
 
 # Plot original XOR points
-
-plt.scatter(
-    X_xor[y_xor == 0, 0],
-    X_xor[y_xor == 0, 1],
-    color='red',
-    s=120,
-    label='Class 0 (Output 0)',
-    marker='o',
-    edgecolors='k'
-)
-
+ 
 plt.scatter(
     X_xor[y_xor == 1, 0],
     X_xor[y_xor == 1, 1],
