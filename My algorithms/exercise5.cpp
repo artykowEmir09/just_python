@@ -1,3 +1,8 @@
+// Create a stack program that accepts five (5) integer values from user.
+// Display total data in stack.
+// Remove the data in stack, one by one until the stack is empty. Display the data before you remove it.
+
+
 #include <iostream>
 #include <stack>
 using namespace std;
