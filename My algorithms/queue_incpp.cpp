@@ -25,15 +25,4 @@ int main()
 
     cout << "Append 30\n";
     myQ1.push(30);
-
-    cout << "Q1 size: " << myQ1.size() << endl;
-    cout << "Q1 front: " << myQ1.front() << endl;
-    cout << "Q1 rear: " << myQ1.back() << endl;
-
-    cout << "Append 50\n";
-    myQ1.push(50);
-
-    cout << "Serve Q1: " << myQ1.front() << endl;
-    myQ1.pop();
-
  
