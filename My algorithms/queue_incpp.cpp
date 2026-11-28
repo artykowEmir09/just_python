@@ -36,4 +36,19 @@ int main()
     cout << "Serve Q1: " << myQ1.front() << endl;
     myQ1.pop();
 
- 
+    cout << "Q1 size: " << myQ1.size() << endl;
+    cout << "Q1 front: " << myQ1.front() << endl;
+    cout << "Q1 rear: " << myQ1.back() << endl;
+
+    if (myQ1.empty())
+    {
+        cout << "Q1 is empty\n";
+    }
+    else
+    {
+        cout << "Serve Q1: " << myQ1.front() << endl;
+        myQ1.pop();
+    }
+
+    return 0;
+}
